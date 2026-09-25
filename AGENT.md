@@ -6,7 +6,7 @@ Upute za AI agenta (ili čovjeka) koji održava ovaj web. Sve promjene idu kroz 
 - Statički HTML (`index.html`, `hvala.html`, `privatnost.html`, `404.html`), bez build koraka.
 - `api/subscribe.js` — Vercel serverless funkcija: forma → Brevo (double opt-in).
 - Hosting: Vercel projekt `eai-zdravo-web`, tim `dowlaingreens-projects`.
-- Domene: `eai-zdravo.com` (glavna), `www.eai-zdravo.com`, `eaizdravo.com`, `e-ai.fit` → 308 na glavnu.
+- Domene: `www.eai-zdravo.com` (kanonska; `eai-zdravo.com` → 308 na www, postavka u Vercelu). `eaizdravo.com`, `e-ai.fit` (+www) → 308 na www.eai-zdravo.com preko `vercel.json` redirects.
 - Pošta: `info@eai-zdravo.com` (Zoho Mail). Slanje newslettera/onboardinga: Brevo, pošiljatelj `info@eai-zdravo.com`.
 
 ## Dozvole agenta (najmanje potrebno)

@@ -4,7 +4,7 @@
 //   BREVO_DOI_TEMPLATE_ID    required — Brevo template with the {{ doubleoptin }} confirm link
 //   BREVO_LIST_BESPLATNO     required — list id (number)
 //   BREVO_LIST_PODRZAVATELJ, BREVO_LIST_OSNIVAC, BREVO_LIST_FITNESS, BREVO_LIST_ZDRAVLJE  optional; fall back to BESPLATNO
-//   SITE_URL                 optional, default https://eai-zdravo.com
+//   SITE_URL                 optional, default https://www.eai-zdravo.com
 
 const PAKETI = ['besplatno', 'podrzavatelj', 'osnivac', 'fitness', 'zdravlje'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -52,7 +52,7 @@ module.exports = async function handler(req, res) {
     return res.status(503).json({ error: 'Prijave se otvaraju uskoro. Do tada nam piši na info@eai-zdravo.com.' });
   }
 
-  const site = process.env.SITE_URL || 'https://eai-zdravo.com';
+  const site = process.env.SITE_URL || 'https://www.eai-zdravo.com';
   const attributes = {
     FIRSTNAME: name || undefined,
     PAKET: paket,

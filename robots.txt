@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /hvala
-Sitemap: https://eai-zdravo.com/sitemap.xml
+Sitemap: https://www.eai-zdravo.com/sitemap.xml
