@@ -1,0 +1,17 @@
+/* Podstranice (hvala, privatnost, 404) — isti tokeni kao index.html */
+:root{--c-handle:#152A1D;--c-ink:#152A1D;--c-leaf-700:#2C5E1F;--c-leaf-600:#41792A;--c-bg:#FEFDF8;--c-tint:#F2F7EC;--c-line:#E9EBE1;--c-text:#34443A;--c-muted:#56645B;--c-focus:#41792A;--font:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;--r-sm:14px;--r-md:20px;--r-pill:999px;--sh-1:0 1px 2px rgba(21,42,29,.05),0 4px 14px -6px rgba(21,42,29,.10)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--c-bg);color:var(--c-text);font-family:var(--font);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--c-leaf-600)}a:hover{color:var(--c-leaf-700)}
+:focus-visible{outline:3px solid var(--c-focus);outline-offset:3px}
+.top{padding:14px clamp(16px,5.5vw,80px);border-bottom:1px solid var(--c-line);background:var(--c-bg)}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--c-ink)}
+.brand img{width:40px;height:40px;display:block}
+.brand span{font-weight:800;font-size:19px;letter-spacing:-.02em}
+.brand em{font-style:normal;color:var(--c-leaf-600)}
+main{max-width:760px;margin:0 auto;padding:clamp(40px,8vw,96px) clamp(16px,5.5vw,40px)}
+h1{font-size:clamp(34px,6vw,54px);line-height:1.05;letter-spacing:-.03em;margin:0 0 20px;color:var(--c-ink);font-weight:800}
+h2{font-size:22px;margin:36px 0 8px;color:var(--c-ink);font-weight:700}
+p,li{color:var(--c-muted)}
+.btn{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:var(--r-pill);background:var(--c-leaf-600);color:#fff;text-decoration:none;font-weight:700;margin-top:24px}
+.btn:hover{background:var(--c-leaf-700);color:#fff}
