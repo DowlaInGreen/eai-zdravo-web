@@ -48,11 +48,6 @@
   ],
   "redirects": [
     {
-      "source": "/founder",
-      "destination": "/",
-      "permanent": true
-    },
-    {
       "source": "/:path*",
       "has": [
         {
