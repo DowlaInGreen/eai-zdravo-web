@@ -71,6 +71,17 @@ p{margin:0}
 .ppe b{font-family:'Archivo',sans-serif;font-size:clamp(32px,3vw,40px);font-weight:800;color:var(--green-d);white-space:nowrap}
 .ppe span{font-size:15px;line-height:1.4;color:var(--ink-2)}
 
+.hero-art{width:100%}
+.hero-svg{display:block;width:100%;height:auto;max-width:640px;margin-left:auto}
+.proof{font-size:15px;color:var(--muted)} .proof b{color:var(--green-d)}
+@media (max-width:900px){
+  .hero-svg{margin:0 auto;max-width:520px}
+  /* mobitel: pitanje → naslov → vizual → tekst → CTA */
+  .hero .wrap{gap:22px}
+  .hero .wrap>.stack{display:contents}
+  .hero .q{order:1} .hero h1{order:2} .hero-art{order:3} .hero .lead{order:4} .hero .ctas{order:5} .hero .proof{order:6}
+}
+
 /* DEMO */
 .white{background:#fff}
 .head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-bottom:36px}
@@ -211,15 +222,121 @@ footer a{color:var(--dark-2)} footer a:hover{color:#fff}
         <a href="#rezervacija" class="btn btn-green btn-lg">Rezerviraj Founder paket — 17,99 €</a>
         <a href="#tjedan" class="link">Vidi kako izgleda jedan tjedan ↓</a>
       </div>
+      <p class="proof"><b>~23 g proteina po euru</b> u našim testnim planovima · ništa u hladnjaku duže od 3 dana</p>
     </div>
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px"><strong style="font-size:18px">Tvoj tjedan</strong><span style="font-size:14px;color:var(--muted)">5 jela · 14 obroka</span></div>
-      <div class="sess">
-        <div style="background:var(--green);color:#fff"><small>Nedjelja</small><b>3 jela</b><span>pokriva ned – sri · 8 obroka</span></div>
-        <div style="background:var(--ink);color:#fff"><small>Srijeda</small><b>2 jela</b><span>pokriva čet – sub · 6 obroka</span></div>
-      </div>
-      <div class="ppe"><b>~23 g</b><span>proteina po euru u našim testnim planovima za tri tipa kućanstva</span></div>
-      <p style="font-size:14px;color:var(--muted);margin-top:12px">Ništa ne stoji u hladnjaku duže od 3 dana.</p>
+    <div class="hero-art">
+<svg class="hero-svg" viewBox="0 0 640 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pet posuda s jelima za tjedan, podijeljenih na nedjeljno i srijedino kuhanje, uz shopping listu">
+  <!-- podloga: polica hladnjaka -->
+  <rect x="16" y="16" width="608" height="528" rx="32" fill="#FFFFFF" stroke="#E2DED3" stroke-width="2"/>
+  <rect x="16" y="262" width="608" height="6" fill="#EEF2E6"/>
+  <rect x="16" y="500" width="608" height="6" fill="#EEF2E6"/>
+
+  <!-- chip 14 obroka -->
+  <g transform="translate(468 40)">
+    <rect width="132" height="44" rx="22" fill="#1E2322"/>
+    <text x="66" y="29" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-size="19" fill="#FAF8F4">14 obroka</text>
+  </g>
+
+  <!-- NEDJELJA -->
+  <g transform="translate(44 50)">
+    <rect width="150" height="34" rx="17" fill="#3F7A22"/>
+    <text x="16" y="23" font-family="Archivo, sans-serif" font-weight="700" font-size="14" letter-spacing="1.5" fill="#FFFFFF">NEDJELJA</text>
+    <text x="104" y="23" font-family="Figtree, sans-serif" font-weight="700" font-size="14" fill="#DCEBD1">3 jela</text>
+  </g>
+
+  <!-- posuda 1: svinjski vrat, riža, grašak/mrkva -->
+  <g transform="translate(44 104)">
+    <rect width="170" height="136" rx="20" fill="#FFFFFF" stroke="#CFD9C3" stroke-width="3"/>
+    <rect x="10" y="10" width="150" height="116" rx="13" fill="#F6F2E8"/>
+    <line x1="85" y1="16" x2="85" y2="120" stroke="#E2DED3" stroke-width="3"/>
+    <rect x="20" y="30" width="56" height="30" rx="12" fill="#A9683D" transform="rotate(-8 48 45)"/>
+    <rect x="22" y="68" width="54" height="30" rx="12" fill="#B9794A" transform="rotate(6 49 83)"/>
+    <ellipse cx="122" cy="46" rx="30" ry="22" fill="#F3EBD8"/>
+    <circle cx="112" cy="42" r="2" fill="#E2D6B8"/><circle cx="126" cy="50" r="2" fill="#E2D6B8"/><circle cx="132" cy="38" r="2" fill="#E2D6B8"/>
+    <circle cx="104" cy="94" r="7" fill="#6FA64A"/><circle cx="120" cy="100" r="7" fill="#6FA64A"/><circle cx="138" cy="92" r="7" fill="#E58A3A"/><circle cx="124" cy="84" r="6" fill="#E58A3A"/>
+  </g>
+
+  <!-- posuda 2: tjestenina, piletina, rajčica -->
+  <g transform="translate(234 104)">
+    <rect width="170" height="136" rx="20" fill="#FFFFFF" stroke="#CFD9C3" stroke-width="3"/>
+    <rect x="10" y="10" width="150" height="116" rx="13" fill="#F6F2E8"/>
+    <ellipse cx="85" cy="68" rx="62" ry="44" fill="#C8472E" opacity="0.85"/>
+    <rect x="40" y="44" width="30" height="12" rx="6" fill="#EFC77A" transform="rotate(-30 55 50)"/>
+    <rect x="76" y="36" width="30" height="12" rx="6" fill="#EFC77A" transform="rotate(20 91 42)"/>
+    <rect x="104" y="60" width="30" height="12" rx="6" fill="#EFC77A" transform="rotate(-15 119 66)"/>
+    <rect x="46" y="78" width="30" height="12" rx="6" fill="#EFC77A" transform="rotate(25 61 84)"/>
+    <rect x="84" y="84" width="30" height="12" rx="6" fill="#EFC77A" transform="rotate(-35 99 90)"/>
+    <rect x="66" y="58" width="16" height="14" rx="4" fill="#F1DFC4"/>
+    <rect x="96" y="92" width="16" height="14" rx="4" fill="#F1DFC4"/>
+    <rect x="36" y="62" width="14" height="14" rx="4" fill="#F1DFC4"/>
+  </g>
+
+  <!-- posuda 3: zabatak, krumpir, mrkva -->
+  <g transform="translate(424 104)">
+    <rect width="170" height="136" rx="20" fill="#FFFFFF" stroke="#CFD9C3" stroke-width="3"/>
+    <rect x="10" y="10" width="150" height="116" rx="13" fill="#F6F2E8"/>
+    <line x1="85" y1="16" x2="85" y2="120" stroke="#E2DED3" stroke-width="3"/>
+    <ellipse cx="50" cy="58" rx="26" ry="20" fill="#B9794A" transform="rotate(-25 50 58)"/>
+    <rect x="58" y="72" width="8" height="26" rx="4" fill="#F3EBD8" transform="rotate(-25 62 85)"/>
+    <circle cx="66" cy="100" r="5" fill="#F3EBD8"/>
+    <circle cx="106" cy="40" r="13" fill="#E9C877"/><circle cx="136" cy="46" r="12" fill="#E3BD63"/><circle cx="118" cy="66" r="12" fill="#E9C877"/>
+    <rect x="98" y="88" width="44" height="9" rx="4.5" fill="#E58A3A" transform="rotate(-12 120 92)"/>
+    <rect x="100" y="102" width="44" height="9" rx="4.5" fill="#E58A3A" transform="rotate(8 122 106)"/>
+  </g>
+
+  <!-- SRIJEDA -->
+  <g transform="translate(44 288)">
+    <rect width="150" height="34" rx="17" fill="#1E2322"/>
+    <text x="16" y="23" font-family="Archivo, sans-serif" font-weight="700" font-size="14" letter-spacing="1.5" fill="#FFFFFF">SRIJEDA</text>
+    <text x="100" y="23" font-family="Figtree, sans-serif" font-weight="700" font-size="14" fill="#C9CEC9">2 jela</text>
+  </g>
+
+  <!-- posuda 4: pileća prsa, heljda, brokula -->
+  <g transform="translate(44 342)">
+    <rect width="170" height="136" rx="20" fill="#FFFFFF" stroke="#CFD9C3" stroke-width="3"/>
+    <rect x="10" y="10" width="150" height="116" rx="13" fill="#F6F2E8"/>
+    <line x1="85" y1="16" x2="85" y2="120" stroke="#E2DED3" stroke-width="3"/>
+    <rect x="22" y="26" width="52" height="16" rx="7" fill="#EBCB9C"/>
+    <rect x="22" y="48" width="52" height="16" rx="7" fill="#E4BE88"/>
+    <rect x="22" y="70" width="52" height="16" rx="7" fill="#EBCB9C"/>
+    <rect x="22" y="92" width="52" height="16" rx="7" fill="#E4BE88"/>
+    <ellipse cx="122" cy="44" rx="30" ry="22" fill="#9C7552"/>
+    <circle cx="112" cy="40" r="2.5" fill="#7E5C3E"/><circle cx="128" cy="48" r="2.5" fill="#7E5C3E"/><circle cx="134" cy="36" r="2.5" fill="#7E5C3E"/>
+    <circle cx="104" cy="92" r="9" fill="#4F8A34"/><circle cx="116" cy="84" r="9" fill="#5E9A40"/><circle cx="130" cy="94" r="9" fill="#4F8A34"/><circle cx="142" cy="84" r="8" fill="#5E9A40"/>
+  </g>
+
+  <!-- posuda 5: svinjski vrat, krumpir, luk -->
+  <g transform="translate(234 342)">
+    <rect width="170" height="136" rx="20" fill="#FFFFFF" stroke="#CFD9C3" stroke-width="3"/>
+    <rect x="10" y="10" width="150" height="116" rx="13" fill="#F6F2E8"/>
+    <line x1="85" y1="16" x2="85" y2="120" stroke="#E2DED3" stroke-width="3"/>
+    <rect x="20" y="32" width="56" height="30" rx="12" fill="#B9794A" transform="rotate(6 48 47)"/>
+    <rect x="20" y="70" width="56" height="30" rx="12" fill="#A9683D" transform="rotate(-6 48 85)"/>
+    <circle cx="108" cy="42" r="13" fill="#E9C877"/><circle cx="136" cy="50" r="12" fill="#E3BD63"/><circle cx="114" cy="68" r="11" fill="#E9C877"/>
+    <circle cx="112" cy="98" r="11" fill="none" stroke="#E8DCC6" stroke-width="4"/>
+    <circle cx="138" cy="96" r="10" fill="none" stroke="#D9C9AC" stroke-width="4"/>
+  </g>
+
+  <!-- shopping lista -->
+  <g transform="rotate(4 520 400) translate(440 312)">
+    <rect x="4" y="6" width="160" height="178" rx="10" fill="#1E2322" opacity="0.08"/>
+    <rect width="160" height="178" rx="10" fill="#FFFFFF" stroke="#E2DED3" stroke-width="2"/>
+    <text x="16" y="30" font-family="Archivo, sans-serif" font-weight="800" font-size="15" fill="#1E2322">Shopping lista</text>
+    <text x="16" y="48" font-family="Figtree, sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#6A706C">MAX 3 TRGOVINE</text>
+    <g font-family="Figtree, sans-serif" font-size="13" fill="#444B48">
+      <rect x="16" y="62" width="14" height="14" rx="3" fill="#3F7A22"/><path d="M19 69l3 3 6-6" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="38" y="74">Zabatak 2 kg</text>
+      <rect x="16" y="86" width="14" height="14" rx="3" fill="#3F7A22"/><path d="M19 93l3 3 6-6" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="38" y="98">Krumpir 5 kg</text>
+      <rect x="16" y="110" width="14" height="14" rx="3" fill="none" stroke="#CFCBC0" stroke-width="2"/>
+      <text x="38" y="122">Vrat 1,5 kg</text>
+      <rect x="16" y="134" width="14" height="14" rx="3" fill="none" stroke="#CFCBC0" stroke-width="2"/>
+      <text x="38" y="146">Tjestenina 1 kg</text>
+      <rect x="16" y="158" width="14" height="14" rx="3" fill="none" stroke="#CFCBC0" stroke-width="2"/>
+      <text x="38" y="170">Heljda 500 g</text>
+    </g>
+  </g>
+</svg>
     </div>
   </div>
 </section>
