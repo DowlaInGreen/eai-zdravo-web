@@ -6,6 +6,7 @@
 //   BREVO_LIST_PODRZAVATELJ, BREVO_LIST_OSNIVAC, BREVO_LIST_FITNESS, BREVO_LIST_ZDRAVLJE  optional; fall back to BESPLATNO
 //   SITE_URL                 optional, default https://www.eai-zdravo.com
 
+const { b64url, sign } = require('./_lib/token');
 const PAKETI = ['besplatno', 'podrzavatelj', 'osnivac', 'fitness', 'zdravlje'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -67,7 +68,7 @@ module.exports = async function handler(req, res) {
     attributes,
     includeListIds: listFor(paket),
     templateId: Number(process.env.BREVO_DOI_TEMPLATE_ID),
-    redirectionUrl: site + '/hvala',
+    redirectionUrl: `${site}/api/welcome?e=${b64url(email)}&s=${sign(email)}`,
   };
 
   try {
