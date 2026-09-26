@@ -321,8 +321,8 @@ footer a{color:var(--dark-2);text-decoration:none} footer a:hover{color:#fff}
           <label for="f-paket">Što te zanima?</label>
           <select id="f-paket" name="paket">
             <option value="besplatno">2 besplatne knjige</option>
-            <option value="podrzavatelj">Podržavatelj · 17,99 € (rezervacija)</option>
-            <option value="osnivac">Osnivač · 49,99 € (rezervacija)</option>
+            <option value="podrzavatelj">Korisnici · 17,99 € (rezervacija)</option>
+            <option value="osnivac">Premium partneri · 49,99 € (rezervacija)</option>
             <option value="fitness">Fitness programi (obavijesti me)</option>
             <option value="zdravlje">Preporuke po zdravstvenom stanju (obavijesti me)</option>
           </select>
@@ -359,7 +359,7 @@ footer a{color:var(--dark-2);text-decoration:none} footer a:hover{color:#fff}
       </div>
       <div class="plan hot">
         <span class="badge">NAJPOPULARNIJE</span>
-        <div><h3>Podržavatelj</h3><p class="sub">Cijela biblioteka + 3 mjeseca platforme.</p></div>
+        <div><h3>Korisnici</h3><p class="sub">Cijela biblioteka + 3 mjeseca platforme.</p></div>
         <div class="price"><b>17,99 €</b><span>jednokratno</span></div>
         <ul>
           <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3F7A22" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Svih 12 PDF knjiga, 120 recepata</li>
@@ -371,7 +371,7 @@ footer a{color:var(--dark-2);text-decoration:none} footer a:hover{color:#fff}
       </div>
       <div class="plan dark">
         <span class="badge">SAMO 20 MJESTA</span>
-        <div><h3>Osnivač</h3><p class="sub">Godina dana platforme i izravan kanal s nama.</p></div>
+        <div><h3>Premium partneri</h3><p class="sub">Godina dana platforme i izravan kanal s nama.</p></div>
         <div class="price"><b>49,99 €</b><span>jednokratno</span></div>
         <ul>
           <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CCB7A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Svih 12 PDF knjiga, 120 recepata</li>
@@ -379,7 +379,7 @@ footer a{color:var(--dark-2);text-decoration:none} footer a:hover{color:#fff}
           <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CCB7A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Pristup zatvorenom WhatsApp kanalu</li>
           <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9CCB7A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>Glas u tome što gradimo sljedeće</li>
         </ul>
-        <a href="#besplatno" class="btn btn-light" data-paket="osnivac">Rezerviraj mjesto osnivača</a>
+        <a href="#besplatno" class="btn btn-light" data-paket="osnivac">Postani premium partner</a>
       </div>
     </div>
     <p class="fine">Naplata se otvara uskoro. Rezervacijom si na listi prvi i dobivaš link za uplatu prije svih. Nakon pokretanja platforma prelazi na mjesečnu pretplatu, a rani podržavatelji je ne plaćaju tijekom svog besplatnog razdoblja.</p>
@@ -416,7 +416,7 @@ footer a{color:var(--dark-2);text-decoration:none} footer a:hover{color:#fff}
         <span class="eyebrow">Uskoro na platformi</span>
         <h2 class="h2">Hrana je prvi korak.<br><span class="dim">Slijede trening i zdravlje.</span></h2>
       </div>
-      <p class="lead">Osnivači i podržavatelji dobivaju pristup novim modulima među prvima, unutar svog besplatnog razdoblja.</p>
+      <p class="lead">Korisnici i premium partneri dobivaju pristup novim modulima među prvima, unutar svog besplatnog razdoblja.</p>
     </div>
     <div class="grid2">
       <article class="soon">
@@ -458,7 +458,7 @@ footer a{color:var(--dark-2);text-decoration:none} footer a:hover{color:#fff}
         <p>Naplata se otvara uskoro. Rezerviraj mjesto i prvi ćeš dobiti link za uplatu na email.</p>
       </details>
       <details>
-        <summary>Zašto samo 20 osnivača?</summary>
+        <summary>Zašto samo 20 premium partnera?</summary>
         <p>WhatsApp kanal je mala grupa u kojoj izravno razgovaramo i testiramo nove značajke. Više od 20 ljudi to ne bi dopustilo.</p>
       </details>
       <details>
@@ -507,7 +507,7 @@ footer a{color:var(--dark-2);text-decoration:none} footer a:hover{color:#fff}
 (function(){
   var form=document.getElementById('signup'), msg=document.getElementById('form-msg'),
       sel=document.getElementById('f-paket'), btn=form.querySelector('button[type=submit]');
-  var labels={besplatno:'Pošalji mi 2 knjige',podrzavatelj:'Rezerviraj Podržavatelj paket',osnivac:'Rezerviraj mjesto osnivača',fitness:'Obavijesti me',zdravlje:'Obavijesti me'};
+  var labels={besplatno:'Pošalji mi 2 knjige',podrzavatelj:'Rezerviraj paket Korisnici',osnivac:'Postani premium partner',fitness:'Obavijesti me',zdravlje:'Obavijesti me'};
   function setPaket(p){ if(labels[p]){ sel.value=p; btn.textContent=labels[p]; } }
   sel.addEventListener('change',function(){ setPaket(sel.value); });
   document.querySelectorAll('[data-paket]').forEach(function(a){
