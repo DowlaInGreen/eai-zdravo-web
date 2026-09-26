@@ -22,12 +22,12 @@ Agent NIKAD ne traži, ne ispisuje i ne commita API ključeve. Ključeve upisuje
 | Ime | Primjer | Obavezno |
 |---|---|---|
 | `BREVO_API_KEY` | (tajna) | da |
-| `BREVO_DOI_TEMPLATE_ID` | `1` | da |
-| `BREVO_LIST_BESPLATNO` | `3` | da |
-| `BREVO_LIST_PODRZAVATELJ` | `4` | ne |
-| `BREVO_LIST_OSNIVAC` | `5` | ne |
-| `BREVO_LIST_FITNESS` | `6` | ne |
-| `BREVO_LIST_ZDRAVLJE` | `7` | ne |
+| `BREVO_DOI_TEMPLATE_ID` | `1` ("DOI potvrda prijave") | da |
+| `BREVO_LIST_BESPLATNO` | `2` (01 Free Tier) | da |
+| `BREVO_LIST_PODRZAVATELJ` | `3` (02 Korisnici, paket "Korisnici" 17,99 €) | ne |
+| `BREVO_LIST_OSNIVAC` | `4` (03 Premium Korisnici, paket "Premium partneri" 49,99 €) | ne |
+| `BREVO_LIST_FITNESS` | `5` (04 Fitness) | ne |
+| `BREVO_LIST_ZDRAVLJE` | `6` (05 Zdravlje) | ne |
 | `SITE_URL` | `https://eai-zdravo.com` | ne |
 
 Dok varijable nisu postavljene, forma vraća poruku "Prijave se otvaraju uskoro" (HTTP 503) — ništa se ne gubi tiho.
@@ -59,3 +59,8 @@ dig +short MX eai-zdravo.com; dig +short TXT eai-zdravo.com; dig +short TXT _dma
 - Brojke prije pridjeva. Nema izmišljenih statistika.
 - Plaćanje se uključuje tek kad postoji registrirani subjekt (obrt/d.o.o.) — do tada gumbi "Rezerviraj mjesto" vode na formu.
 - Svaka izmjena: provjeri responzivnost na 390 px, 768 px i 1440 px (nema horizontalnog scrolla).
+
+## Status (26.9.2026)
+- Zoho (MX/SPF/DKIM/DMARC) ✅, Brevo domena autentificirana ✅, pošiljatelj info@ ✅, DOI predložak #1 ✅, forma → Brevo end-to-end test ✅.
+- Brevo: blokada nepoznatih IP adresa isključena za API ključeve (Vercel ima promjenjive IP-eve).
+- Česta greška: 401 "Key not found" = u Vercel upisan SMTP/MCP ključ umjesto API ključa (`xkeysib-`).
