@@ -3,7 +3,7 @@
    Izbor se pamti u localStorage ("eai_consent" = "yes" | "no"). Promjena: link "Postavke kolačića" (data-consent-reset).
    Događaji: window.eaiTrack('Lead') — šalje se samo ako je privola dana, inače tiho ništa. */
 (function () {
-  var PIXEL_ID = '1511159546967875';
+  var PIXEL_ID = '1608983517302133';
   var KEY = 'eai_consent';
   var queue = [];
 
