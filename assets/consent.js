@@ -22,9 +22,9 @@
     while (queue.length) window.fbq.apply(null, queue.shift());
   }
 
-  window.eaiTrack = function (event, params) {
+  window.eaiTrack = function (event, params, opts) {
     if (get() !== 'yes') return;
-    var args = ['track', event].concat(params ? [params] : []);
+    var args = ['track', event, params || {}].concat(opts ? [opts] : []);
     if (window.fbq) window.fbq.apply(null, args); else queue.push(args);
   };
 
@@ -62,6 +62,17 @@
       });
     });
   }
+
+  function cookie(n) { var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)'); return m ? decodeURIComponent(m[1]) : ''; }
+  // Podaci za server-side Lead (CAPI). Prazno ako nema privole.
+  window.eaiMeta = function () {
+    if (get() !== 'yes') return { meta_consent: false };
+    var id = 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+    var fbc = cookie('_fbc');
+    var clid = new URLSearchParams(location.search).get('fbclid');
+    if (!fbc && clid) fbc = 'fb.1.' + Date.now() + '.' + clid;
+    return { meta_consent: true, event_id: id, fbp: cookie('_fbp'), fbc: fbc, source_url: location.href.split('#')[0] };
+  };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

@@ -29,6 +29,9 @@ Agent NIKAD ne traži, ne ispisuje i ne commita API ključeve. Ključeve upisuje
 | `BREVO_LIST_FITNESS` | `5` (04 Fitness) | ne |
 | `BREVO_LIST_ZDRAVLJE` | `6` (05 Zdravlje) | ne |
 | `SITE_URL` | `https://eai-zdravo.com` | ne |
+| `META_CAPI_TOKEN` | (tajna, Events Manager → dataset → Postavke → Conversions API) | ne — bez njega server-side Lead je isključen |
+| `META_PIXEL_ID` | `1608983517302133` | ne |
+| `META_TEST_EVENT_CODE` | `TEST12345` (samo za test, obriši nakon) | ne |
 
 Dok varijable nisu postavljene, forma vraća poruku "Prijave se otvaraju uskoro" (HTTP 503) — ništa se ne gubi tiho.
 
@@ -53,6 +56,11 @@ curl -s -X POST https://eai-zdravo.com/api/subscribe -H 'content-type: applicati
   -d '{"email":"test+1@example.com","consent":true,"paket":"besplatno"}'   # {"ok":true} (ili 503 dok env nije postavljen)
 dig +short MX eai-zdravo.com; dig +short TXT eai-zdravo.com; dig +short TXT _dmarc.eai-zdravo.com
 ```
+
+## Meta mjerenje
+- Pixel `1608983517302133` ("E-AI zdravo web") se učitava tek nakon "Prihvati" (`assets/consent.js`).
+- Lead ide dvaput s istim `event_id`: pixel iz preglednika + CAPI sa servera (`api/_lib/meta-capi.js`) → Meta deduplicira. CAPI radi i kad ad-blocker blokira pixel. Šalje se samo uz privolu.
+- Nakon izmjene `consent.js` podigni `?v=N` u svim HTML-ovima (assets se keširaju 7 dana).
 
 ## Pravila sadržaja
 - Bez tvrdnji o zdravstvenim ishodima (liječi, regulira, poboljšava zdravlje). Samo planiranje, cijene, vrijeme.

@@ -7,6 +7,7 @@
 //   SITE_URL                 optional, default https://www.eai-zdravo.com
 
 const { b64url, sign } = require('./_lib/token');
+const { sendLead } = require('./_lib/meta-capi');
 const PAKETI = ['besplatno', 'podrzavatelj', 'osnivac', 'fitness', 'zdravlje'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -81,6 +82,17 @@ module.exports = async function handler(req, res) {
     if (!r.ok) {
       console.error('subscribe: Brevo error', r.status, r.text);
       return res.status(502).json({ error: 'Prijava trenutno ne prolazi. Pokušaj za minutu ili piši na info@eai-zdravo.com.' });
+    }
+    // Meta CAPI: samo uz privolu za kolačiće; greška ovdje nikad ne ruši prijavu.
+    if (data.meta_consent === true) {
+      const s = (v, n) => String(v || '').slice(0, n) || undefined;
+      await sendLead(req, {
+        email, paket,
+        eventId: s(data.event_id, 64),
+        sourceUrl: s(data.source_url, 500),
+        fbp: s(data.fbp, 120),
+        fbc: s(data.fbc, 300),
+      }).catch(() => {});
     }
     return res.status(200).json({ ok: true });
   } catch (err) {
