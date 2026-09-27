@@ -1,5 +1,5 @@
 /* Podstranice (hvala, privatnost, 404) — isti tokeni kao index.html */
-:root{--c-handle:#152A1D;--c-ink:#152A1D;--c-leaf-700:#2C5E1F;--c-leaf-600:#41792A;--c-bg:#FEFDF8;--c-tint:#F2F7EC;--c-line:#E9EBE1;--c-text:#34443A;--c-muted:#56645B;--c-focus:#41792A;--font:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;--r-sm:14px;--r-md:20px;--r-pill:999px;--sh-1:0 1px 2px rgba(21,42,29,.05),0 4px 14px -6px rgba(21,42,29,.10)}
+:root{--c-handle:#152A1D;--c-ink:#152A1D;--c-leaf-700:#2C5E1F;--c-leaf-600:#41792A;--c-bg:#FFFFFF;--c-tint:#F2F7EC;--c-line:#ECEEEA;--c-text:#34443A;--c-muted:#56645B;--c-focus:#41792A;--font:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;--r-sm:14px;--r-md:20px;--r-pill:999px;--sh-1:0 1px 2px rgba(21,42,29,.05),0 4px 14px -6px rgba(21,42,29,.10)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--c-bg);color:var(--c-text);font-family:var(--font);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:var(--c-leaf-600)}a:hover{color:var(--c-leaf-700)}
