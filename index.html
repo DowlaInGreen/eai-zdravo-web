@@ -489,6 +489,7 @@ html:not(.js-story) .story-step{opacity:1;min-height:0;padding:var(--s-5) 0}
   summary{font-size:var(--fs-md)}
 }
 </style>
+<script src="/assets/consent.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#top">Preskoči na sadržaj</a>
@@ -1033,7 +1034,7 @@ html:not(.js-story) .story-step{opacity:1;min-height:0;padding:var(--s-5) 0}
       utm_source:params.get('utm_source')||'',utm_campaign:params.get('utm_campaign')||''
     })}).then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return {ok:r.ok,j:j}; }); })
     .then(function(res){
-      if(res.ok){ msg.className='form-msg ok'; msg.textContent='Gotovo! Provjeri inbox (i spam) i potvrdi prijavu.'; form.reset(); setPaket('besplatno'); }
+      if(res.ok){ if(window.eaiTrack) window.eaiTrack('Lead',{content_name:sel.value}); msg.className='form-msg ok'; msg.textContent='Gotovo! Provjeri inbox (i spam) i potvrdi prijavu.'; form.reset(); setPaket('besplatno'); }
       else { msg.className='form-msg err'; msg.textContent=(res.j&&res.j.error)||'Nešto nije u redu. Pokušaj ponovno ili piši na info@eai-zdravo.com.'; }
     }).catch(function(){ msg.className='form-msg err'; msg.textContent='Nema veze s poslužiteljem. Pokušaj ponovno.'; })
     .finally(function(){ btn.disabled=false; if(btn.textContent==='Šaljem…') btn.textContent=old; });
