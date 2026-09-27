@@ -332,6 +332,104 @@ html:not(.motion) .marquee .track{animation:none}
   .module .btn{align-self:stretch}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}.btn:hover{transform:none}}
+
+/* ================= SCROLL STORY (Kako radi) — vizual zakačen, scroll vodi animaciju ================= */
+.ea{margin:0}
+.ea svg{display:block;width:100%;height:auto}
+.ea-cap{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:10px;margin-top:14px;padding:0 6px;font-family:var(--font,Figtree,system-ui,sans-serif);font-size:16px;font-weight:600;color:#56645B;min-height:24px}
+.ea-cap .dot{width:9px;height:9px;border-radius:50%;background:#41792A;display:block}
+.ea-st{grid-row:1;grid-column:2}
+.ea-st.fin{color:#2C5E1F;font-weight:700}
+.ea text{font-family:var(--font,Figtree,system-ui,sans-serif)}
+.ea .t-pill{font-family:var(--font,Figtree,system-ui,sans-serif);font-weight:700;font-size:14px;letter-spacing:1.5px}
+.ea .t-pill2{font-weight:700;font-size:14px}
+.ea .t-num{font-family:var(--font,Figtree,system-ui,sans-serif);font-weight:800;font-size:19px;fill:#FFFFFF}
+.ea .t-h{font-family:var(--font,Figtree,system-ui,sans-serif);font-weight:800;font-size:16px;fill:#152A1D}
+.ea .t-cap{font-size:11px;font-weight:700;letter-spacing:1px;fill:#56645B}
+.ea .t-row{font-size:13px;fill:#34443A}
+.ea .t-price{font-size:13px;font-weight:700;fill:#2C5E1F}
+.ea .tb,.ea [class*="a-"]{transform-box:fill-box;transform-origin:center}
+.ea .dot{animation:ea-pulse 1.2s ease-in-out infinite}
+@keyframes ea-pulse{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes k-n0{0%{opacity:1;transform:none}49.44%{opacity:1;transform:none}53.33%{opacity:0;transform:translateY(-14px)}96.67%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}
+@keyframes k-n8{0%{opacity:0;transform:translateY(14px)}49.44%{opacity:0;transform:translateY(14px)}52.78%{opacity:1;transform:none}65.00%{opacity:1;transform:none}68.89%{opacity:0;transform:translateY(-14px)}100%{opacity:0;transform:translateY(-14px)}}
+@keyframes k-n14{0%{opacity:0;transform:translateY(14px)}65.00%{opacity:0;transform:translateY(14px)}68.33%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0;transform:translateY(-14px)}100%{opacity:0;transform:translateY(-14px)}}
+@keyframes k-pned{0%{opacity:0}35.56%{opacity:0}38.89%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-psri{0%{opacity:0}55.56%{opacity:0}58.89%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-f0{0%{opacity:0;transform:scale(.86)}38.33%{opacity:0;transform:scale(.86)}41.37%{opacity:1;transform:scale(1.05)}43.00%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-f1{0%{opacity:0;transform:scale(.86)}42.22%{opacity:0;transform:scale(.86)}45.26%{opacity:1;transform:scale(1.05)}46.89%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-f2{0%{opacity:0;transform:scale(.86)}46.11%{opacity:0;transform:scale(.86)}49.14%{opacity:1;transform:scale(1.05)}50.78%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-f3{0%{opacity:0;transform:scale(.86)}58.33%{opacity:0;transform:scale(.86)}61.37%{opacity:1;transform:scale(1.05)}63.00%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-f4{0%{opacity:0;transform:scale(.86)}62.22%{opacity:0;transform:scale(.86)}65.26%{opacity:1;transform:scale(1.05)}66.89%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-r0{0%{opacity:0;transform:translateX(16px)}6.11%{opacity:0;transform:translateX(16px)}10.33%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-c0{0%{opacity:0;transform:scale(.86)}26.11%{opacity:0;transform:scale(.86)}28.13%{opacity:1;transform:scale(1.05)}29.22%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-r1{0%{opacity:0;transform:translateX(16px)}9.67%{opacity:0;transform:translateX(16px)}13.89%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-c1{0%{opacity:0;transform:scale(.86)}27.89%{opacity:0;transform:scale(.86)}29.91%{opacity:1;transform:scale(1.05)}31.00%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-r2{0%{opacity:0;transform:translateX(16px)}13.22%{opacity:0;transform:translateX(16px)}17.44%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-c2{0%{opacity:0;transform:scale(.86)}29.67%{opacity:0;transform:scale(.86)}31.69%{opacity:1;transform:scale(1.05)}32.78%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-r3{0%{opacity:0;transform:translateX(16px)}16.78%{opacity:0;transform:translateX(16px)}21.00%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-c3{0%{opacity:0;transform:scale(.86)}31.44%{opacity:0;transform:scale(.86)}33.47%{opacity:1;transform:scale(1.05)}34.56%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-r4{0%{opacity:0;transform:translateX(16px)}20.33%{opacity:0;transform:translateX(16px)}24.56%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-c4{0%{opacity:0;transform:scale(.86)}33.22%{opacity:0;transform:scale(.86)}35.24%{opacity:1;transform:scale(1.05)}36.33%{opacity:1;transform:none}95.00%{opacity:1;transform:none}98.89%{opacity:0}100%{opacity:0}}
+@keyframes k-s0{0%{opacity:1;transform:none}25.56%{opacity:1;transform:none}27.78%{opacity:0;transform:translateY(-14px)}96.67%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}
+@keyframes k-s1{0%{opacity:0;transform:translateY(14px)}28.00%{opacity:0;transform:translateY(14px)}31.33%{opacity:1;transform:none}35.56%{opacity:1;transform:none}37.78%{opacity:0;transform:translateY(-14px)}100%{opacity:0;transform:translateY(-14px)}}
+@keyframes k-s2{0%{opacity:0;transform:translateY(14px)}38.00%{opacity:0;transform:translateY(14px)}41.33%{opacity:1;transform:none}55.56%{opacity:1;transform:none}57.78%{opacity:0;transform:translateY(-14px)}100%{opacity:0;transform:translateY(-14px)}}
+@keyframes k-s3{0%{opacity:0;transform:translateY(14px)}58.00%{opacity:0;transform:translateY(14px)}61.33%{opacity:1;transform:none}70.00%{opacity:1;transform:none}72.22%{opacity:0;transform:translateY(-14px)}100%{opacity:0;transform:translateY(-14px)}}
+@keyframes k-s4{0%{opacity:0;transform:translateY(14px)}72.44%{opacity:0;transform:translateY(14px)}75.78%{opacity:1;transform:none}95.00%{opacity:1;transform:none}97.22%{opacity:0;transform:translateY(-14px)}100%{opacity:0;transform:translateY(-14px)}}
+.ea .a-n0{animation:k-n0 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-n8{animation:k-n8 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-n14{animation:k-n14 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-pned{animation:k-pned 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-psri{animation:k-psri 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-f0{animation:k-f0 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-f1{animation:k-f1 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-f2{animation:k-f2 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-f3{animation:k-f3 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-f4{animation:k-f4 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-r0{animation:k-r0 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-c0{animation:k-c0 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-r1{animation:k-r1 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-c1{animation:k-c1 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-r2{animation:k-r2 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-c2{animation:k-c2 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-r3{animation:k-r3 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-c3{animation:k-c3 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-r4{animation:k-r4 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-c4{animation:k-c4 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-s0{animation:k-s0 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-s1{animation:k-s1 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-s2{animation:k-s2 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-s3{animation:k-s3 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+.ea .a-s4{animation:k-s4 9.0s cubic-bezier(.2,.7,.2,1) infinite both}
+@media (prefers-reduced-motion:reduce){
+  .ea *{animation:none!important}
+  .ea .rm-hide{opacity:0}
+}
+.ea.scrub [class*="a-"]{animation-play-state:paused!important;animation-delay:calc(var(--t,0) * -1s)!important}
+.story-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,5vw,72px);align-items:start}
+.story-stage{grid-column:2;grid-row:1;position:sticky;top:max(96px,calc(50vh - 290px));align-self:start}
+.story-stage .ea{max-width:620px;margin-left:auto}
+.story-steps{grid-column:1;grid-row:1}
+.story-step{min-height:72vh;display:flex;gap:var(--s-5);align-items:center;opacity:.3;transition:opacity .45s var(--ease-out,ease)}
+.story-step:first-child{min-height:50vh;align-items:flex-start;padding-top:8vh}
+.story-step:last-child{min-height:60vh}
+.story-step.on{opacity:1}
+html:not(.js-story) .story-step{opacity:1;min-height:0;padding:var(--s-5) 0}
+.story-step .num{flex-shrink:0;width:48px;height:48px;border-radius:var(--r-sm);background:var(--c-leaf-600);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:var(--fs-lg)}
+.story-step:last-child .num{background:var(--c-handle)}
+.story-step h3{font-size:clamp(24px,2.4vw,34px);letter-spacing:-.02em;margin:6px 0 10px}
+.story-step p{color:var(--c-muted);font-size:var(--fs-lg);max-width:440px}
+@media (max-width:900px){
+  .story-grid{display:block}
+  .story-stage{position:sticky;top:0;z-index:5;background:#fff;padding:10px 0 6px;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);border-bottom:1px solid var(--c-line)}
+  .story-stage .ea{max-width:440px;margin:0 auto}
+  .story-stage .ea-cap{font-size:15px;margin-top:8px}
+  .story-step{min-height:40vh;align-items:center;padding:0}
+  .story-step:first-child{min-height:40vh;align-items:center;padding-top:0}
+  .story-step:last-child{min-height:52vh}
+  .story-step p{font-size:var(--fs-md)}
+}
+
 /* ================= MOBITEL (≤720px): manje teksta, swipe umjesto stupca ================= */
 @media (max-width:720px){
   :root{--s-section:56px}
@@ -449,29 +547,138 @@ html:not(.motion) .marquee .track{animation:none}
   </div>
 </section>
 
-<section id="food-prep" class="sec">
+<section id="food-prep" class="sec story">
   <div class="wrap">
     <div class="head">
       <span class="eyebrow" data-reveal>Food Prep · prvi modul</span>
       <h2 class="h2" data-split>Kuhaš dvaput. Jedeš cijeli tjedan.</h2>
       <p class="lead m-hide" data-reveal>Trgovine su zakonom obvezne svaki dan objaviti cjenike. Mi ih čitamo umjesto tebe, pa plan prati stvarne cijene, a ne cijene iz stranih aplikacija.</p>
     </div>
-    <div class="steps deck swipe" aria-label="Kako radi, 3 koraka">
-      <article class="step card">
-        <span class="num">1</span>
-        <h3>Nabava: najviše proteina za tvoj euro</h3>
-        <p>Uspoređujemo dnevne cijene u zagrebačkim lancima i biramo namirnice koje daju najviše kvalitete za najmanje novca.</p>
-      </article>
-      <article class="step card">
-        <span class="num">2</span>
-        <h3>Plan: 14 obroka i jedna shopping lista</h3>
-        <p>Tjedni jelovnik s količinama, makronutrijentima i listom po trgovini. Kupiš točno ono što trebaš, bez viškova.</p>
-      </article>
-      <article class="step card featured">
-        <span class="num">3</span>
-        <h3>Priprema: nedjelja i srijeda</h3>
-        <p>Dvije sesije kuhanja, korak po korak. Obroci su spremni za posao, trening i obiteljski stol, bez pekare u zadnji tren.</p>
-      </article>
+    <div class="story-grid">
+      <div class="story-stage" aria-hidden="false">
+        <figure class="ea"><svg viewBox="0 0 640 530" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animacija: sustav čita današnje cijene, slaže shopping listu, a zatim se u nedjelju pune 3 posude i u srijedu 2 — ukupno 14 obroka.">
+<rect x="16" y="16" width="608" height="500" rx="32" fill="#FFFFFF" stroke="#ECEEEA" stroke-width="2"/>
+<rect x="16" y="262" width="608" height="6" fill="#F5F8F1"/>
+<g transform="translate(468 40)">
+<clipPath id="ea-clip"><rect width="132" height="44" rx="22"/></clipPath>
+<rect width="132" height="44" rx="22" fill="#152A1D"/>
+<g clip-path="url(#ea-clip)">
+<text x="46" y="29" text-anchor="end" class="t-num a-n0 rm-hide">0</text>
+<text x="46" y="29" text-anchor="end" class="t-num a-n8 rm-hide">8</text>
+<text x="46" y="29" text-anchor="end" class="t-num a-n14">14</text>
+</g>
+<text x="52" y="29" class="t-num" style="font-weight:700">obroka</text>
+</g>
+<g transform="translate(44 50)"><rect width="164" height="34" rx="17" fill="#EDEAE2"/>
+<text x="16" y="23" class="t-pill" fill="#8A908C">NEDJELJA</text><text x="114" y="23" class="t-pill2" fill="#8A908C">3 jela</text><g class="a-pned"><rect width="164" height="34" rx="17" fill="#41792A"/>
+<text x="16" y="23" class="t-pill" fill="#FFFFFF">NEDJELJA</text><text x="114" y="23" class="t-pill2" fill="#DCEBD1">3 jela</text></g></g>
+<g transform="translate(44 288)"><rect width="164" height="34" rx="17" fill="#EDEAE2"/>
+<text x="16" y="23" class="t-pill" fill="#8A908C">SRIJEDA</text><text x="108" y="23" class="t-pill2" fill="#8A908C">2 jela</text><g class="a-psri"><rect width="164" height="34" rx="17" fill="#152A1D"/>
+<text x="16" y="23" class="t-pill" fill="#FFFFFF">SRIJEDA</text><text x="108" y="23" class="t-pill2" fill="#C9CEC9">2 jela</text></g></g>
+<g transform="translate(44 104)">
+<rect x="1.5" y="1.5" width="167" height="133" rx="19" fill="#FFFFFF" stroke="#CFCBC0" stroke-width="2" stroke-dasharray="7 7"/>
+<g class="a-f0 tb">
+<rect width="170" height="136" rx="20" fill="#FFFFFF" stroke="#DCE8D2" stroke-width="3"/>
+<rect x="10" y="10" width="150" height="116" rx="13" fill="#F7F5EE"/><line x1="85" y1="16" x2="85" y2="120" stroke="#ECEEEA" stroke-width="3"/>
+<rect x="20" y="30" width="56" height="30" rx="12" fill="#A9683D" transform="rotate(-8 48 45)"/>
+<rect x="22" y="68" width="54" height="30" rx="12" fill="#B9794A" transform="rotate(6 49 83)"/>
+<ellipse cx="122" cy="46" rx="30" ry="22" fill="#F3EBD8"/>
+<circle cx="112" cy="42" r="2" fill="#E2D6B8"/><circle cx="126" cy="50" r="2" fill="#E2D6B8"/><circle cx="132" cy="38" r="2" fill="#E2D6B8"/>
+<circle cx="104" cy="94" r="7" fill="#6FA64A"/><circle cx="120" cy="100" r="7" fill="#6FA64A"/><circle cx="138" cy="92" r="7" fill="#E58A3A"/><circle cx="124" cy="84" r="6" fill="#E58A3A"/>
+</g></g><g transform="translate(234 104)">
+<rect x="1.5" y="1.5" width="167" height="133" rx="19" fill="#FFFFFF" stroke="#CFCBC0" stroke-width="2" stroke-dasharray="7 7"/>
+<g class="a-f1 tb">
+<rect width="170" height="136" rx="20" fill="#FFFFFF" stroke="#DCE8D2" stroke-width="3"/>
+<rect x="10" y="10" width="150" height="116" rx="13" fill="#F7F5EE"/>
+<ellipse cx="85" cy="68" rx="62" ry="44" fill="#C8472E" opacity="0.85"/>
+<rect x="40" y="44" width="30" height="12" rx="6" fill="#EFC77A" transform="rotate(-30 55 50)"/>
+<rect x="76" y="36" width="30" height="12" rx="6" fill="#EFC77A" transform="rotate(20 91 42)"/>
+<rect x="104" y="60" width="30" height="12" rx="6" fill="#EFC77A" transform="rotate(-15 119 66)"/>
+<rect x="46" y="78" width="30" height="12" rx="6" fill="#EFC77A" transform="rotate(25 61 84)"/>
+<rect x="84" y="84" width="30" height="12" rx="6" fill="#EFC77A" transform="rotate(-35 99 90)"/>
+<rect x="66" y="58" width="16" height="14" rx="4" fill="#F1DFC4"/><rect x="96" y="92" width="16" height="14" rx="4" fill="#F1DFC4"/><rect x="36" y="62" width="14" height="14" rx="4" fill="#F1DFC4"/>
+</g></g><g transform="translate(424 104)">
+<rect x="1.5" y="1.5" width="167" height="133" rx="19" fill="#FFFFFF" stroke="#CFCBC0" stroke-width="2" stroke-dasharray="7 7"/>
+<g class="a-f2 tb">
+<rect width="170" height="136" rx="20" fill="#FFFFFF" stroke="#DCE8D2" stroke-width="3"/>
+<rect x="10" y="10" width="150" height="116" rx="13" fill="#F7F5EE"/><line x1="85" y1="16" x2="85" y2="120" stroke="#ECEEEA" stroke-width="3"/>
+<ellipse cx="50" cy="58" rx="26" ry="20" fill="#B9794A" transform="rotate(-25 50 58)"/>
+<rect x="58" y="72" width="8" height="26" rx="4" fill="#F3EBD8" transform="rotate(-25 62 85)"/><circle cx="66" cy="100" r="5" fill="#F3EBD8"/>
+<circle cx="106" cy="40" r="13" fill="#E9C877"/><circle cx="136" cy="46" r="12" fill="#E3BD63"/><circle cx="118" cy="66" r="12" fill="#E9C877"/>
+<rect x="98" y="88" width="44" height="9" rx="4.5" fill="#E58A3A" transform="rotate(-12 120 92)"/><rect x="100" y="102" width="44" height="9" rx="4.5" fill="#E58A3A" transform="rotate(8 122 106)"/>
+</g></g><g transform="translate(44 342)">
+<rect x="1.5" y="1.5" width="167" height="133" rx="19" fill="#FFFFFF" stroke="#CFCBC0" stroke-width="2" stroke-dasharray="7 7"/>
+<g class="a-f3 tb">
+<rect width="170" height="136" rx="20" fill="#FFFFFF" stroke="#DCE8D2" stroke-width="3"/>
+<rect x="10" y="10" width="150" height="116" rx="13" fill="#F7F5EE"/><line x1="85" y1="16" x2="85" y2="120" stroke="#ECEEEA" stroke-width="3"/>
+<rect x="22" y="26" width="52" height="16" rx="7" fill="#EBCB9C"/><rect x="22" y="48" width="52" height="16" rx="7" fill="#E4BE88"/>
+<rect x="22" y="70" width="52" height="16" rx="7" fill="#EBCB9C"/><rect x="22" y="92" width="52" height="16" rx="7" fill="#E4BE88"/>
+<ellipse cx="122" cy="44" rx="30" ry="22" fill="#9C7552"/>
+<circle cx="112" cy="40" r="2.5" fill="#7E5C3E"/><circle cx="128" cy="48" r="2.5" fill="#7E5C3E"/><circle cx="134" cy="36" r="2.5" fill="#7E5C3E"/>
+<circle cx="104" cy="92" r="9" fill="#4F8A34"/><circle cx="116" cy="84" r="9" fill="#5E9A40"/><circle cx="130" cy="94" r="9" fill="#4F8A34"/><circle cx="142" cy="84" r="8" fill="#5E9A40"/>
+</g></g><g transform="translate(234 342)">
+<rect x="1.5" y="1.5" width="167" height="133" rx="19" fill="#FFFFFF" stroke="#CFCBC0" stroke-width="2" stroke-dasharray="7 7"/>
+<g class="a-f4 tb">
+<rect width="170" height="136" rx="20" fill="#FFFFFF" stroke="#DCE8D2" stroke-width="3"/>
+<rect x="10" y="10" width="150" height="116" rx="13" fill="#F7F5EE"/><line x1="85" y1="16" x2="85" y2="120" stroke="#ECEEEA" stroke-width="3"/>
+<rect x="20" y="32" width="56" height="30" rx="12" fill="#B9794A" transform="rotate(6 48 47)"/>
+<rect x="20" y="70" width="56" height="30" rx="12" fill="#A9683D" transform="rotate(-6 48 85)"/>
+<circle cx="108" cy="42" r="13" fill="#E9C877"/><circle cx="136" cy="50" r="12" fill="#E3BD63"/><circle cx="114" cy="68" r="11" fill="#E9C877"/>
+<circle cx="112" cy="98" r="11" fill="none" stroke="#E8DCC6" stroke-width="4"/><circle cx="138" cy="96" r="10" fill="none" stroke="#D9C9AC" stroke-width="4"/>
+</g></g>
+<g transform="rotate(3 520 400) translate(412 296)">
+<rect x="4" y="7" width="192" height="206" rx="12" fill="#152A1D" opacity="0.08"/>
+<rect width="192" height="206" rx="12" fill="#FFFFFF" stroke="#ECEEEA" stroke-width="2"/>
+<text x="16" y="30" class="t-h">Shopping lista</text>
+<text x="16" y="49" class="t-cap">PRIMJER · DNEVNE CIJENE</text>
+<g class="a-r0 tb">
+<rect x="16" y="64" width="14" height="14" rx="3" fill="none" stroke="#CFCBC0" stroke-width="2"/>
+<text x="38" y="76" class="t-row">Zabatak 2 kg</text>
+<text x="176" y="76" class="t-price" text-anchor="end">5,98 €</text></g>
+<g class="a-c0 tb"><rect x="16" y="64" width="14" height="14" rx="3" fill="#41792A"/>
+<path d="M19 71l3 3 6-6" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="a-r1 tb">
+<rect x="16" y="88" width="14" height="14" rx="3" fill="none" stroke="#CFCBC0" stroke-width="2"/>
+<text x="38" y="100" class="t-row">Krumpir 5 kg</text>
+<text x="176" y="100" class="t-price" text-anchor="end">3,49 €</text></g>
+<g class="a-c1 tb"><rect x="16" y="88" width="14" height="14" rx="3" fill="#41792A"/>
+<path d="M19 95l3 3 6-6" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="a-r2 tb">
+<rect x="16" y="112" width="14" height="14" rx="3" fill="none" stroke="#CFCBC0" stroke-width="2"/>
+<text x="38" y="124" class="t-row">Vrat 1,5 kg</text>
+<text x="176" y="124" class="t-price" text-anchor="end">8,99 €</text></g>
+<g class="a-c2 tb"><rect x="16" y="112" width="14" height="14" rx="3" fill="#41792A"/>
+<path d="M19 119l3 3 6-6" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="a-r3 tb">
+<rect x="16" y="136" width="14" height="14" rx="3" fill="none" stroke="#CFCBC0" stroke-width="2"/>
+<text x="38" y="148" class="t-row">Tjestenina 1 kg</text>
+<text x="176" y="148" class="t-price" text-anchor="end">1,29 €</text></g>
+<g class="a-c3 tb"><rect x="16" y="136" width="14" height="14" rx="3" fill="#41792A"/>
+<path d="M19 143l3 3 6-6" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><g class="a-r4 tb">
+<rect x="16" y="160" width="14" height="14" rx="3" fill="none" stroke="#CFCBC0" stroke-width="2"/>
+<text x="38" y="172" class="t-row">Heljda 500 g</text>
+<text x="176" y="172" class="t-price" text-anchor="end">1,99 €</text></g>
+<g class="a-c4 tb"><rect x="16" y="160" width="14" height="14" rx="3" fill="#41792A"/>
+<path d="M19 167l3 3 6-6" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+</g>
+</svg>
+<figcaption class="ea-cap" aria-hidden="true"><i class="dot"></i><span class="ea-st a-s0 rm-hide">Čitam današnje cijene iz trgovina…</span><span class="ea-st a-s1 rm-hide">Shopping lista složena — 5 stavki</span><span class="ea-st a-s2 rm-hide">Nedjelja: kuhaš 3 jela → 8 obroka</span><span class="ea-st a-s3 rm-hide">Srijeda: kuhaš 2 jela → 6 obroka</span><span class="ea-st a-s4 fin">Tjedan spreman · 14 obroka</span></figcaption></figure>
+      </div>
+      <div class="story-steps">
+        <article class="story-step" data-step="0">
+          <span class="num">1</span>
+          <div><span class="eyebrow">Cijene</span><h3>Svako jutro čitamo službene cjenike</h3><p>Trgovački lanci do 08:00 objavljuju cijene. Sustav ih čita i računa koliko proteina dobiješ za euro.</p></div>
+        </article>
+        <article class="story-step" data-step="1">
+          <span class="num">2</span>
+          <div><span class="eyebrow">Lista</span><h3>Jedna shopping lista za cijeli tjedan</h3><p>Namirnice grupirane po trgovini, s količinama u pakiranjima. Kupiš točno ono što trebaš.</p></div>
+        </article>
+        <article class="story-step" data-step="2">
+          <span class="num">3</span>
+          <div><span class="eyebrow">Nedjelja</span><h3>Prvo kuhanje: 3 jela</h3><p>Jedna sesija pokriva ručkove i večere od ponedjeljka do srijede.</p></div>
+        </article>
+        <article class="story-step" data-step="3">
+          <span class="num">4</span>
+          <div><span class="eyebrow">Srijeda</span><h3>Drugo kuhanje: 2 jela → 14 obroka</h3><p>Druga sesija pokriva ostatak tjedna. Bez pekare u zadnji tren.</p></div>
+        </article>
+      </div>
     </div>
   </div>
 </section>
@@ -812,6 +1019,33 @@ html:not(.motion) .marquee .track{animation:none}
     }).catch(function(){ msg.className='form-msg err'; msg.textContent='Nema veze s poslužiteljem. Pokušaj ponovno.'; })
     .finally(function(){ btn.disabled=false; if(btn.textContent==='Šaljem…') btn.textContent=old; });
   });
+})();
+</script>
+<script>
+/* Scroll story: aktivni korak prema sredini ekrana, vrijeme SVG animacije = napredak scrolla */
+(function(){
+  var fig=document.querySelector('.story .ea'), steps=[].slice.call(document.querySelectorAll('.story-step'));
+  var stage=document.querySelector('.story-stage');
+  if(!fig||!steps.length) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('js-story'); fig.classList.add('scrub');
+  var W=[[0.15,2.25],[2.25,3.2],[3.2,4.95],[4.95,6.8]], tick=false;
+  function upd(){
+    tick=false;
+    var c;
+    if(innerWidth>900){ c=innerHeight*0.55; }
+    else { var sb=Math.max(0,Math.min(stage.getBoundingClientRect().bottom,innerHeight*0.6)); c=sb+(innerHeight-sb)*0.55; }
+    var t=0.05, act=0, wide=innerWidth>900, best=1e9;
+    steps.forEach(function(s,i){
+      var r=s.getBoundingClientRect(), k=(c-r.top)/Math.max(1,r.height);
+      if(wide){ if(k>=0){ act=i; t=W[i][0]+(W[i][1]-W[i][0])*Math.min(1,k); } }
+      else { var d=Math.abs(r.top+r.height/2-c); if(d<best){ best=d; act=i; t=W[i][0]+(W[i][1]-W[i][0])*Math.max(0,Math.min(1,k)); } }
+    });
+    fig.style.setProperty('--t',t.toFixed(3));
+    steps.forEach(function(s,i){ s.classList.toggle('on',i===act); });
+  }
+  addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(upd); } },{passive:true});
+  addEventListener('resize',upd); upd();
 })();
 </script>
 </body>
