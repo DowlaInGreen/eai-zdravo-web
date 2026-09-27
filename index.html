@@ -333,6 +333,51 @@ html:not(.motion) .marquee .track{animation:none}
   .module .btn{align-self:stretch}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}.btn:hover{transform:none}}
+/* ================= MOBITEL (≤720px): manje teksta, swipe umjesto stupca ================= */
+@media (max-width:720px){
+  :root{--s-section:56px}
+  .m-hide{display:none!important}
+  .head{margin-bottom:var(--s-5);gap:var(--s-3)}
+  .lead{font-size:var(--fs-md)}
+  /* hero */
+  .hero .wrap:first-child{gap:var(--s-5);padding-top:28px}
+  .hero-copy{gap:var(--s-4)}
+  .plan-demo{padding:var(--s-4)}
+  .session{padding:12px;margin-top:10px}
+  .marquee{margin-top:40px;padding:14px 0}
+  .marquee ul{font-size:20px}
+  /* horizontalni swipe: kartica 84 %, sljedeća viri kao znak */
+  .swipe{display:grid!important;grid-auto-flow:column;grid-template-columns:none!important;grid-auto-columns:84%;gap:12px!important;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);margin-inline:calc(-1 * var(--gut));padding:4px var(--gut) 16px!important;scrollbar-width:none;max-width:none!important}
+  .swipe::-webkit-scrollbar{display:none}
+  .swipe>*{scroll-snap-align:start}
+  .stats.swipe{grid-auto-columns:42%;margin-top:var(--s-5)}
+  .stat{padding:14px}
+  .stat b{font-size:28px}
+  .step{padding:var(--s-5)}
+  .plans.swipe{padding-top:18px!important;align-items:stretch}
+  .plan{padding:var(--s-5);gap:var(--s-4)}
+  .plan.hot{order:-1}
+  .plan li{font-size:var(--fs-sm)}
+  .books.swipe{grid-template-rows:repeat(2,auto);grid-auto-columns:44%}
+  .book{min-height:96px}
+  /* moduli: "uskoro" kao kompaktni redovi */
+  .modules{gap:10px}
+  .module.live{display:none}
+  .module{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 14px}
+  .module .row{display:contents}
+  .module .icon-tile{order:1;width:40px;height:40px}
+  .module h3{order:2;font-size:var(--fs-md)}
+  .module .tag{order:3}
+  .module p,.module .btn{display:none}
+  /* prijava */
+  .signup{padding:20px;gap:var(--s-5);border-radius:var(--r-lg)}
+  .signup h2{font-size:26px}
+  form{padding:20px}
+  form .btn{white-space:normal;text-align:center;line-height:1.2;padding:12px 20px}
+  .final{padding:28px 22px}
+  details{padding:12px 0}
+  summary{font-size:var(--fs-md)}
+}
 </style>
 </head>
 <body>
@@ -363,7 +408,7 @@ html:not(.motion) .marquee .track{animation:none}
     <div class="hero-copy">
       <span class="pill" data-reveal data-hero><i></i>Jedite zdravo i povoljno · Zagreb</span>
       <h1 data-split data-hero>Tjedni plan zdravih obroka za cijelu obitelj, <em>po stvarnim cijenama.</em></h1>
-      <p class="lead" data-reveal data-hero>E-AI zdravo svaki dan čita cijene iz zagrebačkih trgovina i slaže plan od 14 obroka s najviše proteina po euru. Ti kuhaš dvaput tjedno, a shopping lista je već gotova.</p>
+      <p class="lead" data-reveal data-hero>E-AI zdravo svaki dan čita cijene iz zagrebačkih trgovina i slaže plan od 14 obroka s najviše proteina po euru.<span class="m-hide"> Ti kuhaš dvaput tjedno, a shopping lista je već gotova.</span></p>
       <div class="hero-cta" data-reveal data-hero>
         <a href="#besplatno" class="btn btn-primary btn-lg" data-paket="besplatno">Prijavi se za rani pristup
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -379,18 +424,18 @@ html:not(.motion) .marquee .track{animation:none}
       <div class="session">
         <h4>Nedjelja · kuhanje 1 <span>pon – sri</span></h4>
         <div class="meal">Pileći ćufteti s batatom i brokulom<span>54 g proteina</span></div>
-        <div class="meal">Grčka piletina s limunom i tikvicama<span>55 g proteina</span></div>
+        <div class="meal m-hide">Grčka piletina s limunom i tikvicama<span>55 g proteina</span></div>
       </div>
       <div class="session">
         <h4>Srijeda · kuhanje 2 <span>čet – ned</span></h4>
         <div class="meal">Smash-beef wrap s tzatzikijem<span>54 g proteina</span></div>
-        <div class="meal">Klasična fit salata od jaja<span>52 g proteina</span></div>
+        <div class="meal m-hide">Klasična fit salata od jaja<span>52 g proteina</span></div>
       </div>
-      <div class="foot"><span>+ shopping lista po trgovini</span><span>makronutrijenti uz svaki obrok</span></div>
+      <div class="foot m-hide"><span>+ shopping lista po trgovini</span><span>makronutrijenti uz svaki obrok</span></div>
     </div>
   </div>
   <div class="wrap">
-    <div class="stats" data-stagger>
+    <div class="stats swipe" data-stagger>
       <div class="stat"><b data-count="14">14</b><span>obroka tjedno (ručak + večera)</span></div>
       <div class="stat"><b data-count="2" data-suffix="×">2×</b><span>kuhanje: nedjelja i srijeda</span></div>
       <div class="stat"><b data-count="7">7</b><span>trgovačkih lanaca, cijene svaki dan</span></div>
@@ -410,9 +455,9 @@ html:not(.motion) .marquee .track{animation:none}
     <div class="head">
       <span class="eyebrow" data-reveal>Food Prep · prvi modul</span>
       <h2 class="h2" data-split>Kuhaš dvaput. Jedeš cijeli tjedan.</h2>
-      <p class="lead" data-reveal>Trgovine su zakonom obvezne svaki dan objaviti cjenike. Mi ih čitamo umjesto tebe, pa plan prati stvarne cijene, a ne cijene iz stranih aplikacija.</p>
+      <p class="lead m-hide" data-reveal>Trgovine su zakonom obvezne svaki dan objaviti cjenike. Mi ih čitamo umjesto tebe, pa plan prati stvarne cijene, a ne cijene iz stranih aplikacija.</p>
     </div>
-    <div class="steps deck">
+    <div class="steps deck swipe" aria-label="Kako radi, 3 koraka">
       <article class="step card">
         <span class="num">1</span>
         <h3>Nabava: najviše proteina za tvoj euro</h3>
@@ -437,7 +482,7 @@ html:not(.motion) .marquee .track{animation:none}
     <div class="head">
       <span class="eyebrow" data-reveal>Platforma</span>
       <h2 class="h2" data-split>Hrana je prvi korak.</h2>
-      <p class="lead" data-reveal>Food Prep otvaramo prvi, u ranom pristupu. Ostali moduli su u razvoju i još nisu dostupni.</p>
+      <p class="lead m-hide" data-reveal>Food Prep otvaramo prvi, u ranom pristupu. Ostali moduli su u razvoju i još nisu dostupni.</p>
     </div>
     <div class="modules" data-stagger>
       <article class="module card live">
@@ -477,7 +522,7 @@ html:not(.motion) .marquee .track{animation:none}
       <div style="display:flex;flex-direction:column;gap:var(--s-5)">
         <span class="eyebrow" data-reveal>Rani pristup · besplatno</span>
         <h2 data-split>Prijavi se i odmah preuzmi 2 knjige recepata.</h2>
-        <p class="lead" data-reveal>Javljamo ti čim Food Prep krene. Do tada dobivaš Egg Salad Smashes i Tortilje &amp; Wraps: 20 brzih visokoproteinskih recepata s makronutrijentima i prep trikovima.</p>
+        <p class="lead m-hide" data-reveal>Javljamo ti čim Food Prep krene. Do tada dobivaš Egg Salad Smashes i Tortilje &amp; Wraps: 20 brzih visokoproteinskih recepata s makronutrijentima i prep trikovima.</p>
         <div class="minis">
           <div class="mini"><span class="cov">01</span><div><small>KNJIGA 1</small><b>Egg Salad Smashes</b></div></div>
           <div class="mini"><span class="cov">02</span><div><small>KNJIGA 2</small><b>Tortilje &amp; Wraps</b></div></div>
@@ -488,7 +533,7 @@ html:not(.motion) .marquee .track{animation:none}
           <label for="f-email">Email adresa</label>
           <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="ime@email.com" required>
         </div>
-        <div class="field">
+        <div class="field m-hide">
           <label for="f-name">Ime (neobavezno)</label>
           <input id="f-name" name="name" type="text" autocomplete="given-name" placeholder="Ana">
         </div>
@@ -519,9 +564,9 @@ html:not(.motion) .marquee .track{animation:none}
     <div class="head center">
       <span class="eyebrow" data-reveal>Podrži pokretanje platforme</span>
       <h2 class="h2" data-split>Uđi prije svih. Plati jednom.</h2>
-      <p class="lead" data-reveal>Knjige su gotove, platforma se dovršava. Jednokratnom uplatom dobivaš svih 12 PDF-ova i besplatno korištenje platforme kad krene.</p>
+      <p class="lead m-hide" data-reveal>Knjige su gotove, platforma se dovršava. Jednokratnom uplatom dobivaš svih 12 PDF-ova i besplatno korištenje platforme kad krene.</p>
     </div>
-    <div class="plans" data-stagger>
+    <div class="plans swipe" data-stagger aria-label="Paketi">
       <div class="plan card">
         <div><h3>Probaj</h3><p class="sub">Za one koji žele prvo vidjeti.</p></div>
         <div class="price"><b>0 €</b></div>
@@ -557,7 +602,7 @@ html:not(.motion) .marquee .track{animation:none}
         <a href="#besplatno" class="btn btn-inverse" data-paket="osnivac">Postani premium partner</a>
       </div>
     </div>
-    <p class="fine">Naplata se otvara uskoro. Rezervacijom si na listi prvi i dobivaš link za uplatu prije svih. Nakon pokretanja platforma prelazi na mjesečnu pretplatu, a rani podržavatelji je ne plaćaju tijekom svog besplatnog razdoblja.</p>
+    <p class="fine">Naplata se otvara uskoro. Rezervacijom dobivaš link za uplatu prije svih.<span class="m-hide"> Nakon pokretanja platforma prelazi na mjesečnu pretplatu, a rani podržavatelji je ne plaćaju tijekom svog besplatnog razdoblja.</span></p>
   </div>
 </section>
 
@@ -566,9 +611,9 @@ html:not(.motion) .marquee .track{animation:none}
     <div class="head">
       <span class="eyebrow" data-reveal>Fast Prep High Protein</span>
       <h2 class="h2" data-split>12 knjiga, 120 recepata.</h2>
-      <p class="lead" data-reveal>Svaka knjiga: 10 recepata, makronutrijenti, prep trikovi i popis namirnica.</p>
+      <p class="lead m-hide" data-reveal>Svaka knjiga: 10 recepata, makronutrijenti, prep trikovi i popis namirnica.</p>
     </div>
-    <div class="books" data-stagger>
+    <div class="books swipe" data-stagger aria-label="12 knjiga">
       <div class="book f"><small>01 / 12 · BESPLATNO</small><b>Egg Salad Smashes</b></div>
       <div class="book f"><small>02 / 12 · BESPLATNO</small><b>Tortilje &amp; Wraps</b></div>
       <div class="book t"><small>03 / 12</small><b>Rižota &amp; Zrna</b></div>
