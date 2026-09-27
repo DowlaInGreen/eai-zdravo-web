@@ -430,6 +430,19 @@ html:not(.js-story) .story-step{opacity:1;min-height:0;padding:var(--s-5) 0}
   .story-step p{font-size:var(--fs-md)}
 }
 
+
+/* ================= FOTOGRAFIJE ================= */
+.hero-visual{position:relative}
+.hero-photo{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--r-lg);display:block}
+.hero-chip{position:absolute;left:16px;bottom:16px;padding:10px 16px;border-radius:var(--r-pill);background:rgba(255,255,255,.94);backdrop-filter:blur(6px);font-size:var(--fs-sm);color:var(--c-text);box-shadow:var(--sh-2)}
+.hero-chip b{color:var(--c-leaf-700)}
+@media (max-width:900px){.hero-photo{aspect-ratio:4/3;object-position:50% 60%}}
+.photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-5)}
+.photo{margin:0}
+.photo img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg)}
+.photo figcaption{margin-top:12px;font-size:var(--fs-sm);color:var(--c-muted)}
+.photo figcaption b{color:var(--c-ink)}
+
 /* ================= MOBITEL (≤720px): manje teksta, swipe umjesto stupca ================= */
 @media (max-width:720px){
   :root{--s-section:56px}
@@ -513,22 +526,9 @@ html:not(.js-story) .story-step{opacity:1;min-height:0;padding:var(--s-5) 0}
       </div>
     </div>
 
-    <div class="plan-demo card" aria-label="Primjer tjednog plana">
-      <div class="top">
-        <div><img src="/assets/icon-96.png" alt="" width="36" height="36"><div><b>Tvoj tjedni plan</b><small>Primjer · recepti iz knjiga Fast Prep</small></div></div>
-        <span class="tag tag-live">14 obroka</span>
-      </div>
-      <div class="session">
-        <h4>Nedjelja · kuhanje 1 <span>pon – sri</span></h4>
-        <div class="meal">Pileći ćufteti s batatom i brokulom<span>54 g proteina</span></div>
-        <div class="meal m-hide">Grčka piletina s limunom i tikvicama<span>55 g proteina</span></div>
-      </div>
-      <div class="session">
-        <h4>Srijeda · kuhanje 2 <span>čet – ned</span></h4>
-        <div class="meal">Smash-beef wrap s tzatzikijem<span>54 g proteina</span></div>
-        <div class="meal m-hide">Klasična fit salata od jaja<span>52 g proteina</span></div>
-      </div>
-      <div class="foot m-hide"><span>+ shopping lista po trgovini</span><span>makronutrijenti uz svaki obrok</span></div>
+    <div class="hero-visual">
+      <img class="hero-photo" src="/assets/hero-posude-1000.webp" srcset="/assets/hero-posude-640.webp 640w, /assets/hero-posude-1000.webp 1000w" sizes="(max-width:900px) 92vw, 46vw" width="1000" height="1333" fetchpriority="high" alt="Pet staklenih posuda s tjednim obrocima: svinjetina s rižom i graškom, tjestenina, piletina s heljdom, pečena piletina s krumpirom i brokulom">
+      <span class="hero-chip"><b>14 obroka</b> · 2 kuhanja · 1 lista</span>
     </div>
   </div>
   <div class="wrap">
@@ -679,6 +679,25 @@ html:not(.js-story) .story-step{opacity:1;min-height:0;padding:var(--s-5) 0}
           <div><span class="eyebrow">Srijeda</span><h3>Drugo kuhanje: 2 jela → 14 obroka</h3><p>Druga sesija pokriva ostatak tjedna. Bez pekare u zadnji tren.</p></div>
         </article>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec photos" aria-label="Kako izgleda tjedan">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow" data-reveal>Kako to izgleda</span>
+      <h2 class="h2" data-split>Nedjelja u kuhinji. Tjedan u hladnjaku.</h2>
+    </div>
+    <div class="photo-grid swipe" data-stagger>
+      <figure class="photo">
+        <img src="/assets/priprema-900.webp" srcset="/assets/priprema-560.webp 560w, /assets/priprema-900.webp 900w" sizes="(max-width:720px) 84vw, (max-width:1200px) 46vw, 560px" width="900" height="675" loading="lazy" alt="Ruke slažu pečeni pileći batak s krumpirom i mrkvom u staklenu posudu">
+        <figcaption><b>Nedjelja</b> · 3 jela, jedna sesija kuhanja</figcaption>
+      </figure>
+      <figure class="photo">
+        <img src="/assets/hladnjak-900.webp" srcset="/assets/hladnjak-560.webp 560w, /assets/hladnjak-900.webp 900w" sizes="(max-width:720px) 84vw, (max-width:1200px) 46vw, 560px" width="900" height="547" loading="lazy" alt="Posude s tjesteninom, heljdom, piletinom i povrćem složene u hladnjaku">
+        <figcaption><b>Pon – sri</b> · ručak i večera čekaju u hladnjaku</figcaption>
+      </figure>
     </div>
   </div>
 </section>
