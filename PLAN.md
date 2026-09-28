@@ -339,3 +339,28 @@ Manual checks skipped for the same reason as everything else here (no live URL):
 **Verdict:** PASS on Performance/SEO/Best-Practices/CLS, PASS on accessibility except the one flagged design tradeoff above, LCP flagged as at-risk pending a live re-run.
 
 ---
+
+## P2
+
+### L1-#8 — Favicon set: FIX applied, PASS
+
+`favicon.ico` (has both 16×16 and 32×32 in one file), `favicon-32.png`, `apple-touch-icon.png` (180×180, correct convention size) all already existed and were linked on every page. Missing: `site.webmanifest`. Created it (`name`/`short_name` "E-AI zdravo", icons 192/512, `theme_color` #FFFFFF matching the rest of the site) and linked `<link rel="manifest">` on all 6 pages.
+
+```
+$ python3 -c "import struct; ..." # apple-touch-icon.png, icon-192.png, icon-512.png, icon-96.png
+apple-touch-icon.png: 180 x 180
+icon-192.png: 192 x 192
+icon-512.png: 512 x 512
+icon-96.png: 96 x 96
+
+$ python3 -c "import json; json.load(open('site.webmanifest')); print('valid JSON')"
+valid JSON
+
+$ for f in index.html founder.html privatnost.html uvjeti.html hvala.html 404.html; do grep -c 'rel="manifest"' "$f"; done
+1 1 1 1 1 1
+```
+Live verify (`curl -sI https://www.eai-zdravo.com/favicon.ico` → 200) is **WAITING VLADO (network policy)** — file already existed and is unchanged, so no risk expected.
+
+**Verdict: PASS.**
+
+---
