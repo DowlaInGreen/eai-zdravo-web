@@ -63,4 +63,18 @@ Local file verified. The spec's verify command targets the **live production URL
 
 **WAITING VLADO:** legal entity name + OIB for Terms art. 5 and this page's "Tko obrađuje podatke" section. Neutral wording stands until then — never publish the bracket placeholder live.
 
+### L1-#2 — /uvjeti (Terms of Use): DONE, pending live verify
+
+Created `uvjeti.html` (same layout/CSS as `/privatnost`, `vercel.json` `cleanUrls:true` serves it at `/uvjeti`), content = Prilog A draft verbatim, `[Napomena o PDV-u...]` bracket placeholder reworded to neutral prose per "never publish placeholders" rule. Linked from:
+- footer of `/` and `/founder` (next to "Privatnost")
+- consent checkbox text on both signup forms ("...Privatnost · Uvjeti")
+- added to `sitemap.xml`
+
+```
+$ ls uvjeti.html && grep -c "NAPOMENA\|\[" uvjeti.html
+uvjeti.html
+0
+```
+No bracket placeholders in the page. Live verify (`curl -sI .../uvjeti` → 200, `curl .../ | grep -c '/uvjeti'` ≥ 1) runs against the preview URL once pushed — see live-verify batch below.
+
 ---
