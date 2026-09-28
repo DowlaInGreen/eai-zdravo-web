@@ -171,4 +171,24 @@ Verified in a real headless Chrome against the local server: the link resolves (
 
 **Verdict: PASS.**
 
+### L1-#4 — HTTPS + HSTS: FIX applied, WAITING VLADO (network policy) for live verify
+
+`vercel.json` had no `Strict-Transport-Security` header — added `max-age=63072000; includeSubDomains; preload` to the global `/(.*)`  header block (same block as the existing security headers), exactly as the spec specifies.
+
+Redirect setup per `AGENT.md`: `eai-zdravo.com` (no hyphen typo) → `www.eai-zdravo.com` is configured directly on the domain in the Vercel dashboard (not in `vercel.json`) — `vercel.json`'s `redirects` only covers the two *other* domains (`eaizdravo.com`, `e-ai.fit`). That's consistent with the existing setup, not something this PR should duplicate.
+
+```
+$ python3 -c "import json; json.load(open('vercel.json')); print('valid JSON')"
+valid JSON
+```
+
+**WAITING VLADO (network policy)** — this item's actual proof is 4 live `curl -sI` calls the spec lists, all against real hostnames this session's egress proxy blocks:
+```
+curl -sI http://eai-zdravo.com/ | grep -iE "^(HTTP|location)"
+curl -sI http://www.eai-zdravo.com/ | grep -iE "^(HTTP|location)"
+curl -sI https://eai-zdravo.com/ | grep -iE "^(HTTP|location)"
+curl -sI https://www.eai-zdravo.com/ | grep -iE "^(HTTP|strict-transport)"
+```
+Expected: all three redirect to `https://www.eai-zdravo.com/` in one hop, last one shows the new `strict-transport-security` header once this branch is live. Run after merging/promoting, or once network access opens.
+
 ---
