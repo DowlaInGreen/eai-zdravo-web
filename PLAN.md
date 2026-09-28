@@ -2,6 +2,34 @@
 
 Spec: `uputa-l1-prelaunch-20.md`. Branch: `claude/e-ai-zdravo-social-visibility-d02sc4`. PR: https://github.com/DowlaInGreen/eai-zdravo-web/pull/1
 
+## STATUS (final)
+
+| # | Stavka | Status |
+|---|---|---|
+| 1 | Privacy placeholder | Fix applied · **WAITING VLADO** (legal entity/OIB — expected per spec) |
+| 2 | Uvjeti korištenja | PASS |
+| 3 | Secrets off frontend | PASS |
+| 4 | HTTPS + HSTS | PASS (HSTS header added; live redirect check pending network access) |
+| 5 | Cookie consent | PASS (4/4 Playwright) |
+| 6 | Meta title + description | PASS |
+| 7 | Social preview | PASS (meta tags) · **WAITING VLADO** (founder-specific OG image asset) |
+| 8 | Favicon | PASS |
+| 9 | Sitemap + robots | PASS |
+| 10 | Alt tekst | PASS |
+| 11 | Kompresija slika | PASS |
+| 12 | Brzina (Lighthouse) | PASS (local numbers; home LCP flagged at-risk, re-verify live) |
+| 13 | Kontrast (axe) | **WAITING VLADO** (scroll-story opacity — design tradeoff) |
+| 14 | Mobile | PASS |
+| 15 | Custom 404 | PASS |
+| 16 | Broken links | PASS |
+| 17 | Form validation | PASS (4/4 Playwright) |
+| 18 | Spam zaštita | PASS (rate limit + fill-time, in-process proof) |
+| 19 | Analytics | Code PASS · **WAITING VLADO** (Vercel dashboard toggle + Brevo attribute) |
+| 20 | Jedan CTA | PASS |
+| + | Schema / GEO | PASS |
+
+**17/21 PASS · 0 BLOCKED · 4 WAITING VLADO.**
+
 ## FAZA 0 — recon
 
 **Repo / deploy:** static HTML (no build step), Vercel project `eai-zdravo-web`, team `dowlaingreens-projects`. Every push to a branch gets an automatic Vercel preview (GitHub integration); `main` deploys to production. Canonical domain `www.eai-zdravo.com`; `eai-zdravo.com`, `eaizdravo.com` (+www), `e-ai.fit` (+www) redirect via `vercel.json`.
@@ -398,5 +426,38 @@ after clicking -> button text: Postani premium partner
 Confirmed end-to-end in a real headless browser rather than just reading the code: the user never has to touch the dropdown to get the right package.
 
 **Verdict: PASS.**
+
+---
+
+### L1-#10 / #11 — Alt text, image compression: verify-only, PASS
+
+```
+$ grep -oE '<img[^>]*>' index.html founder.html | grep -v 'alt='
+(empty — every <img> has an alt attribute, content or empty)
+$ ls assets/*.webp
+hero-posude-1000.webp hero-posude-640.webp hero.webp hladnjak-560.webp hladnjak-900.webp priprema-560.webp priprema-900.webp
+$ grep -oE 'src="/assets/[^"]*\.(png|jpg|jpeg)"' index.html founder.html | sort -u
+founder.html:src="/assets/icon-96.png"
+index.html:src="/assets/icon-192.png"
+index.html:src="/assets/icon-96.png"
+```
+All content photography is webp; the only PNGs inline are the small brand-icon logos in the header (exactly the "logo ikone alt=\"\" (dekorativno, OK)" case the spec's own audit already noted). Nothing to change.
+
+**Verdict: PASS** on both, as the spec's own audit already found.
+
+---
+
+## Final OpenSEO audit (baseline — this DOES reach OpenSEO's own crawler infra, not through this session's blocked proxy)
+
+Pulled the existing audit `38be0bd6` (the same one the spec itself was built from, run 28.9. before any of this branch's commits) rather than spending credits re-running it against unchanged production:
+
+```
+1 warning:  orphan-page — https://www.eai-zdravo.com/founder
+2 info:     meta-description-too-long — / (196 chars), /founder (215 chars)
+0 critical
+```
+Both findings map exactly to what this branch fixes: #9 (orphan `/founder` — now linked from the Korisnici card) and #6 (both descriptions now ≤155 chars, confirmed above). `/uvjeti` didn't exist yet at crawl time (3 pages crawled, not 4).
+
+**A fresh audit against the live domain, after Vlado merges/promotes this branch, is the real post-fix confirmation** — re-running it now against still-unchanged production would just reproduce the same numbers and burn credits for nothing. Command for that follow-up: `run_site_audit` on `https://www.eai-zdravo.com/` once promoted; expect 0 warning, 0 info on the two items above.
 
 ---
