@@ -139,3 +139,22 @@ Smoke-tested all 6 pages + a 404 through a headless Chrome against the local sta
 3. Live verify (once access opens or Vlado runs it): open `/?utm_source=test&utm_medium=l1&utm_campaign=verify`, submit a real test signup, confirm the Brevo contact has `IZVOR=test`, `UTM_MEDIJ=l1`, `KAMPANJA=verify`, and that a `founder_view`/`cta_click`/`signup_submit` event shows up in the Vercel Analytics dashboard.
 
 ---
+
+## P1
+
+### L1-#6 — Meta descriptions ≤155 chars: PASS
+
+Replaced `/` and `/founder` descriptions with the spec's exact copy (both were over 155 before). `/privatnost` and `/uvjeti` weren't flagged and were already short — left as-is.
+
+```
+$ python3 -c "... count chars in name=\"description\" content=\"...\" for /, /founder, /privatnost, /uvjeti"
+/: 141 chars
+/founder: 136 chars
+/privatnost: 129 chars
+/uvjeti: 104 chars
+```
+(counted with Python, not bash `${#var}`, so multi-byte UTF-8 — `č š ž đ €` — are counted as 1 character each, matching what the spec's `grep -oP ... | awk '{print length}'` would report against the live pages once network access allows it.)
+
+**Verdict: PASS**, all 4 ≤155.
+
+---
