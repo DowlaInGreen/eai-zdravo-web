@@ -1,0 +1,19 @@
+# E-AI zdravo
+
+> Tjedni plan obroka za obitelji u Hrvatskoj, sastavljen prema dnevnim cijenama u zagrebačkim trgovinama. 14 obroka, 2 kuhanja (nedjelja i srijeda), 1 shopping lista.
+
+E-AI zdravo planira nabavu i pripremu hrane prema stvarnim, dnevno ažuriranim cijenama — ne prema generičkim savjetima o zdravoj prehrani. Ovo nije prehrambeni ni medicinski savjet.
+
+## Stranice
+
+- [Početna](https://www.eai-zdravo.com/): pregled sustava, prijava za rani pristup, 2 besplatne knjige recepata
+- [Founder paket](https://www.eai-zdravo.com/founder): 17,99 € jednokratno — 12 PDF kuharica (120 recepata) + 3 mjeseca platforme
+- [Privatnost](https://www.eai-zdravo.com/privatnost)
+
+## Puni opis
+
+Za detaljne činjenice o proizvodu, metodologiji i cijenama vidi [/llms-full.txt](https://www.eai-zdravo.com/llms-full.txt).
+
+## Kontakt
+
+info@eai-zdravo.com · Instagram [@eai_zdravo](https://www.instagram.com/eai_zdravo/)
