@@ -51,4 +51,16 @@ $ curl -s https://www.eai-zdravo.com/ https://www.eai-zdravo.com/founder | grep 
 ```
 **Verdict: PASS.** No secrets in frontend, build, or git history. Meta Pixel ID (public by design) is the only Meta identifier that appears client-side, in `assets/consent.js` behind the cookie banner.
 
+### L1-#1 — Privacy placeholder: FIX applied, WAITING VLADO (legal entity)
+
+Replaced `[NAZIV SUBJEKTA I OIB — popuniti nakon registracije]` with the neutral wording from the spec. Also added one sentence noting Vercel Web Analytics ("bez kolačića, bez osobnih podataka") ahead of wiring it in L1-#19. No processor beyond Brevo/Vercel/Meta found in code (no Supabase, no Telegram) — existing "Gdje se podaci čuvaju" text was already accurate.
+
+```
+$ grep -c "popuniti" privatnost.html
+0
+```
+Local file verified. The spec's verify command targets the **live production URL** (`curl https://www.eai-zdravo.com/privatnost`) — that still shows the old placeholder until this branch is deployed to the preview and Vlado promotes to production. Re-checked against the preview URL after push (see below).
+
+**WAITING VLADO:** legal entity name + OIB for Terms art. 5 and this page's "Tko obrađuje podatke" section. Neutral wording stands until then — never publish the bracket placeholder live.
+
 ---
