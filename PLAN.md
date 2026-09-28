@@ -285,4 +285,23 @@ $ npx playwright test --reporter=list
 
 **Verdict: PASS** (code + in-process proof).
 
+### L1-GEO — Schema + llms.txt: PASS
+
+Per the spec's own note, this was mostly already done in earlier commits (before this L1 pass): Organization/WebSite/FAQPage on `/` (HowTo added earlier today, see #5's session), Organization/Product+Offer/FAQPage on `/founder`, `/llms.txt` + `/llms-full.txt` live. Verified rather than rebuilt, and filled two gaps against the spec's exact ask:
+- `llms.txt` didn't state the 3 key facts as a distinct list (14 obroka/2 kuhanja, daily HR chain prices, ~23 g protein/€) or link `/uvjeti` (didn't exist yet when it was written) — added both.
+- `llms-full.txt` was missing a plain page-link list — added.
+
+```
+$ python3 -c "... validate + list @graph @type for index.html and founder.html"
+index.html -> valid JSON, 4 items: ['Organization', 'WebSite', 'FAQPage', 'HowTo']
+founder.html -> valid JSON, 3 items: ['Organization', 'Product', 'FAQPage']
+
+$ for f in index.html founder.html; do echo -n "$f: "; grep -c 'application/ld+json' "$f"; done
+index.html: 1
+founder.html: 1
+```
+Both `≥ 1` JSON-LD block per page, both parse as valid JSON. Google Rich Results Test (needs to fetch the live URL) is **WAITING VLADO (network policy)** — code is unchanged from what a JSON-LD validator would see, so no surprises expected, but only a live fetch proves it.
+
+**Verdict: PASS** (schema + llms.txt content); live Rich-Results screenshot pending network access.
+
 ---
