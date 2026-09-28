@@ -384,3 +384,19 @@ Live verify (Facebook Sharing Debugger, opengraph.xyz screenshots) is **WAITING 
 **Verdict: PASS** on the meta-tag fixes; founder-specific image is a separate, explicit ask for Vlado.
 
 ---
+
+### L1-#20 — Single clear CTA: PASS, no change needed
+
+`/founder` untouched, as instructed. On `/`: the dropdown's first `<option>` is `besplatno` ("Rani pristup + 2 knjige") with no `selected` override elsewhere — that's already the default. Both Paketi-section buttons ("Rezerviraj mjesto" → `data-paket="podrzavatelj"`, "Postani premium partner" → `data-paket="osnivac"`) already exist and already wire into the same `setPaket()` handler that pre-selects the dropdown and relabels the submit button — this was built into the form before this L1 pass, so there was nothing to add.
+
+```
+$ node -e "... click a[data-paket=osnivac], read #f-paket value + button text ..."
+default dropdown value on load: besplatno
+after clicking Postani premium partner -> dropdown: osnivac
+after clicking -> button text: Postani premium partner
+```
+Confirmed end-to-end in a real headless browser rather than just reading the code: the user never has to touch the dropdown to get the right package.
+
+**Verdict: PASS.**
+
+---
