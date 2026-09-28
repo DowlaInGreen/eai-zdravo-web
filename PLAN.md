@@ -157,4 +157,18 @@ $ python3 -c "... count chars in name=\"description\" content=\"...\" for /, /fo
 
 **Verdict: PASS**, all 4 ≤155.
 
+### L1-#9 — Sitemap + orphan page: PASS
+
+`/uvjeti` was already added to `sitemap.xml` in #2. Orphan-page fix: `/founder` had no on-page link from `/` — added "Više o Founder paketu" under the "Korisnici" plan card's CTA (`#paketi` section), styled to match the existing plan-card design tokens (`.plan-more`, uses `var(--c-primary)`/dark-card variant). robots.txt left unchanged (already `Allow: /`, AI crawlers intentionally allowed for GEO — matches spec).
+
+```
+$ grep -c "<url>" sitemap.xml
+4
+$ grep -c 'href="/founder"' index.html
+1
+```
+Verified in a real headless Chrome against the local server: the link resolves (`href="/founder"`, text "Više o Founder paketu"), sits inside the Korisnici card, doesn't break layout.
+
+**Verdict: PASS.**
+
 ---
