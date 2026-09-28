@@ -210,3 +210,22 @@ Live equivalent (`curl -s -o /dev/null -w "%{http_code}\n" https://www.eai-zdrav
 **Verdict: PASS** (code + local-serve proof); live proof pending network access.
 
 ---
+
+### L1-#16 — Broken links + `href="#"` cleanup: PASS
+
+```
+$ grep -n 'href="#"' *.html
+privatnost.html:30:<p>Privolu možeš povući u bilo kojem trenutku: <a href="#" data-consent-reset>Postavke kolačića</a>.</p>
+```
+Only one bare `href="#"` on the whole site, and it's the "Postavke kolačića" link the spec's own audit flagged as dead — it already has a working `data-consent-reset` click handler (proven in #5's Playwright test, which clicks exactly this link and asserts the banner reopens). Nothing to change.
+
+```
+$ npx linkinator http://127.0.0.1:8123 --recurse --skip "fonts.googleapis.com,fonts.gstatic.com,instagram.com,connect.facebook.net,facebook.com,_vercel,www.eai-zdravo.com"
+...
+✓ Successfully scanned 18 links in 0.136 seconds.
+```
+Ran against the local server (real domain excluded — network policy). 0 broken internal links, matching the spec's own audit finding. Absolute links to `www.eai-zdravo.com` (canonical tags, `og:url`, `og:image`) can't be crawled from here; they're plain static strings, not generated, so there's nothing code-side left to check once network access opens.
+
+**Verdict: PASS.**
+
+---
