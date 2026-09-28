@@ -192,3 +192,21 @@ curl -sI https://www.eai-zdravo.com/ | grep -iE "^(HTTP|strict-transport)"
 Expected: all three redirect to `https://www.eai-zdravo.com/` in one hop, last one shows the new `strict-transport-security` header once this branch is live. Run after merging/promoting, or once network access opens.
 
 ---
+
+### L1-#15 — Custom 404: PASS
+
+`404.html` already existed with `<meta name="robots" content="noindex">` and the shared header/style — that part of the spec's audit was already satisfied. Updated the copy to the spec's exact wording (was generic "Možda je link zastario") and added the second CTA to the free-books anchor.
+
+```
+$ curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8123/nepostoji   # local server mirrors Vercel's 404.html convention
+404
+$ curl -s http://127.0.0.1:8123/nepostoji | grep -c "ne postoji"
+2
+$ curl -s http://127.0.0.1:8123/nepostoji | grep -c 'name="robots" content="noindex"'
+1
+```
+Live equivalent (`curl -s -o /dev/null -w "%{http_code}\n" https://www.eai-zdravo.com/nepostoji` → 404, `curl .../nepostoji | grep -c "ne postoji"` ≥ 1) is **WAITING VLADO (network policy)**, same blocker as above — Vercel's static-404 behavior is well-documented platform behavior, not something this change affects.
+
+**Verdict: PASS** (code + local-serve proof); live proof pending network access.
+
+---
