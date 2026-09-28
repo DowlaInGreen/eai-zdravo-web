@@ -42,8 +42,10 @@ module.exports = async function handler(req, res) {
   // Honeypot: bots fill hidden "website" field. Pretend success.
   if (data.website) return res.status(200).json({ ok: true });
 
-  const email = String(data.email || '').trim().toLowerCase().slice(0, 254);
-  const name = String(data.name || '').trim().slice(0, 80);
+  const emailRaw = String(data.email || '').trim().toLowerCase();
+  if (!emailRaw || emailRaw.length > 254) return res.status(400).json({ error: 'Upiši ispravnu email adresu.' });
+  const email = emailRaw;
+  const name = String(data.name || '').replace(/<[^>]*>/g, '').trim().slice(0, 80);
   const paket = PAKETI.includes(data.paket) ? data.paket : 'besplatno';
 
   if (!EMAIL_RE.test(email)) return res.status(400).json({ error: 'Upiši ispravnu email adresu.' });

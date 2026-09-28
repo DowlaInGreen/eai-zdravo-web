@@ -228,4 +228,34 @@ Ran against the local server (real domain excluded — network policy). 0 broken
 
 **Verdict: PASS.**
 
+### L1-#17 — Form validation: FIX applied, PASS
+
+Inspected first: `type="email"` + `required` already on both forms' email input, checkbox `required` already there, Croatian error copy already there client- and server-side, submit button already disables synchronously on submit and re-enables in `.finally()`.
+
+Two real gaps found and fixed in `api/subscribe.js`:
+- Overlong email (>254 chars) was silently **truncated** then validated — a malformed-but-truncated string could pass the regex. Now rejected outright before truncation, same error message.
+- `name` wasn't stripped of HTML tags before being stored as the Brevo `FIRSTNAME` attribute. Added `.replace(/<[^>]*>/g, '')`.
+
+```
+$ node -e "const longEmail='a'.repeat(250)+'@x.co'; console.log(longEmail.length, '>254?', longEmail.length>254)"
+255 >254? true
+$ node -e "console.log('<script>alert(1)</script>Ana'.replace(/<[^>]*>/g,'').trim().slice(0,80))"
+alert(1)Ana
+```
+
+Added `tests/form-validation.spec.ts` (4 cases, matching the spec's list) against the local server:
+```
+$ npx playwright test tests/form-validation.spec.ts --reporter=list
+
+  ✓  1 prazan email — odbijeno, poruka na hrvatskom (2.8s)
+  ✓  2 nevaljan email "abc@" — odbijeno (2.2s)
+  ✓  3 bez checkboxa privole — odbijeno (2.1s)
+  ✓  4 dvoklik na submit — samo jedan POST (gumb disabled dok traje) (3.0s)
+
+  4 passed (11.1s)
+```
+The double-click case mocks `/api/subscribe` (no real Brevo call from this sandbox) and counts requests, holding the mocked response open 300ms to force a race — only 1 request ever lands, proving the synchronous `btn.disabled=true` guard actually dedupes rather than just looking right.
+
+**Verdict: PASS**, 4/4.
+
 ---
