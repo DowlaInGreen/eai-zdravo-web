@@ -1019,7 +1019,7 @@ html:not(.js-story) .story-step{opacity:1;min-height:0;padding:var(--s-5) 0}
   var nav=document.getElementById('nav');
   addEventListener('scroll',function(){ nav.classList.toggle('scrolled', scrollY>8); },{passive:true});
   var form=document.getElementById('signup'), msg=document.getElementById('form-msg'),
-      sel=document.getElementById('f-paket'), btn=form.querySelector('button[type=submit]');
+      sel=document.getElementById('f-paket'), btn=form.querySelector('button[type=submit]'), formLoadedAt=Date.now();
   var labels={besplatno:'Prijavi me i pošalji knjige',podrzavatelj:'Rezerviraj paket Korisnici',osnivac:'Postani premium partner',fitness:'Obavijesti me',zdravlje:'Obavijesti me'};
   function setPaket(p){ if(labels[p]){ sel.value=p; btn.textContent=labels[p]; } }
   sel.addEventListener('change',function(){ setPaket(sel.value); });
@@ -1036,7 +1036,7 @@ html:not(.js-story) .story-step{opacity:1;min-height:0;padding:var(--s-5) 0}
     var params=new URLSearchParams(location.search);
     var meta=window.eaiMeta?window.eaiMeta():{meta_consent:false};
     fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      email:email,name:form.name.value.trim(),paket:sel.value,consent:true,website:form.website.value,
+      email:email,name:form.name.value.trim(),paket:sel.value,consent:true,website:form.website.value,loaded_at:formLoadedAt,
       utm_source:params.get('utm_source')||'',utm_medium:params.get('utm_medium')||'',utm_campaign:params.get('utm_campaign')||'',
       meta_consent:meta.meta_consent===true,event_id:meta.event_id||'',fbp:meta.fbp||'',fbc:meta.fbc||'',source_url:meta.source_url||''
     })}).then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return {ok:r.ok,j:j}; }); })

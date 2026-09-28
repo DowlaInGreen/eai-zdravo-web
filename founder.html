@@ -506,7 +506,7 @@ footer a{color:var(--dark-2)} footer a:hover{color:#fff}
 (function(){
   if(window.eaiEvent) window.eaiEvent('founder_view');
   var form=document.getElementById('signup'), msg=document.getElementById('form-msg'),
-      btn=form.querySelector('button[type=submit]'), swap=document.getElementById('swap'), paket='podrzavatelj';
+      btn=form.querySelector('button[type=submit]'), swap=document.getElementById('swap'), paket='podrzavatelj', formLoadedAt=Date.now();
   var L={podrzavatelj:'Rezerviraj Founder paket',besplatno:'Pošalji mi 2 knjige'};
   function setPaket(p){ paket=L[p]?p:'podrzavatelj'; btn.textContent=L[paket]; swap.hidden=(paket==='podrzavatelj'); }
   function focusEmail(){ setTimeout(function(){ document.getElementById('f-email').focus({preventScroll:true}); },450); }
@@ -525,7 +525,7 @@ footer a{color:var(--dark-2)} footer a:hover{color:#fff}
     var params=new URLSearchParams(location.search);
     var meta=window.eaiMeta?window.eaiMeta():{meta_consent:false};
     fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      email:email,name:form.name.value.trim(),paket:paket,consent:true,website:form.website.value,
+      email:email,name:form.name.value.trim(),paket:paket,consent:true,website:form.website.value,loaded_at:formLoadedAt,
       utm_source:params.get('utm_source')||'',utm_medium:params.get('utm_medium')||'',utm_campaign:params.get('utm_campaign')||'',
       meta_consent:meta.meta_consent===true,event_id:meta.event_id||'',fbp:meta.fbp||'',fbc:meta.fbc||'',source_url:meta.source_url||''
     })}).then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return {ok:r.ok,j:j}; }); })

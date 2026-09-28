@@ -258,4 +258,31 @@ The double-click case mocks `/api/subscribe` (no real Brevo call from this sandb
 
 **Verdict: PASS**, 4/4.
 
+### L1-#18 — Spam protection: FIX applied, PASS
+
+Honeypot already existed and already returns a silent 200 without a Brevo write (verified below). Added the two missing pieces from the spec:
+- **Minimum fill time**: both forms now send `loaded_at` (captured at script init, not at submit); the server rejects (silently, 200, like the honeypot — no point tipping off a bot that the check exists) anything submitted <2s after load.
+- **Rate limit**: `api/_lib/rate-limit.js`, in-memory, 5 requests / IP / 10 min, 429 after that — explicitly the spec's "Vercel KV ili in-memory za početak" option. Documented caveat in the file itself: serverless instances aren't guaranteed warm/shared, so this throttles a burst on one warm instance, it isn't a hard global cap — move to Vercel KV if real abuse shows up.
+
+This session can't run the spec's live curl loop against the real endpoint (network policy), so the same assertions run by calling the handler directly with a mocked Brevo `fetch` and fake req/res — same code, same 5-pass/429-after sequence, just in-process instead of over HTTP:
+
+```
+$ node tests/rate-limit.check.js
+PASS — honeypot filled -> silent 200, no Brevo call
+PASS — submitted <2s after load -> silent 200, no Brevo call
+rate-limit sequence: 200 200 200 200 200 429 429
+PASS — first 5 requests from one IP pass (200)
+PASS — 6th and 7th request from same IP -> 429
+```
+
+Re-ran the full Playwright suite after wiring `loaded_at` into both forms' client JS to confirm nothing broke:
+```
+$ npx playwright test --reporter=list
+  8 passed (11.6s)
+```
+
+**WAITING VLADO (network policy)** — the spec's own live-curl-loop verify (7× `curl -X POST <form_endpoint>`, expect 200×5 then 429×2) is ready to run once access opens or on Vlado's machine; identical behavior to the in-process check above.
+
+**Verdict: PASS** (code + in-process proof).
+
 ---
