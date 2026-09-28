@@ -22,3 +22,33 @@ No `vercel` CLI available in this environment (not installed/authenticated) → 
 Nothing unclear here — proceeding to P0.
 
 ---
+
+## P0
+
+### L1-#3 — Secrets off frontend: PASS
+
+```
+$ grep -rEn "(EAA[A-Za-z0-9]{20,}|xkeysib-|sk_live|sk_test|service_role|SUPABASE_SERVICE|BREVO_API|access_token=)" --include="*.html" --include="*.js" .
+./api/_lib/token.js:2:function secret() { return process.env.WELCOME_SECRET || process.env.BREVO_API_KEY || ''; }
+./api/_lib/meta-capi.js:50:    const r = await fetch(`https://graph.facebook.com/${version}/${pixel}/events?access_token=${encodeURIComponent(token)}`, {
+./api/subscribe.js:3://   BREVO_API_KEY            required
+./api/subscribe.js:24:    headers: { 'api-key': process.env.BREVO_API_KEY, ... },
+./api/subscribe.js:52:  if (!process.env.BREVO_API_KEY || ...) {
+./api/welcome.js:15:      headers: { 'api-key': process.env.BREVO_API_KEY, ... },
+```
+All matches are `process.env.*` references inside `/api/*.js` (Vercel serverless, server-only — this is a static-HTML site with no client bundler, so nothing under `/api` ever ships to the browser). No literal key values.
+
+```
+$ git log --all -p | grep -E "xkeysib-[A-Za-z0-9-]+|EAA[A-Za-z0-9]{20,}|sk_live_[A-Za-z0-9]+|service_role"
++grep -rEn "(...)" dist/ .vercel/output   ← this is the spec file's own example command text, not a leaked secret
++curl -s https://www.eai-zdravo.com/ ... | grep -oE "(...)"  ← same
+```
+No real secret in history.
+
+```
+$ curl -s https://www.eai-zdravo.com/ https://www.eai-zdravo.com/founder | grep -oE "(EAA[A-Za-z0-9]{20,}|xkeysib-[A-Za-z0-9-]+|service_role)"
+(empty)
+```
+**Verdict: PASS.** No secrets in frontend, build, or git history. Meta Pixel ID (public by design) is the only Meta identifier that appears client-side, in `assets/consent.js` behind the cookie banner.
+
+---
