@@ -304,4 +304,38 @@ Both `≥ 1` JSON-LD block per page, both parse as valid JSON. Google Rich Resul
 
 **Verdict: PASS** (schema + llms.txt content); live Rich-Results screenshot pending network access.
 
+### L1-#12/13/14 — Speed, contrast, mobile: mostly PASS, one real finding for Vlado
+
+Ran Lighthouse mobile against the local server (real domain blocked by network policy — **numbers below are directional, not the production numbers**: no real TLS handshake, no CDN edge latency, no real font-loading round trip, all of which only exist on the live domain and only push these numbers down, never up).
+
+```
+$ CHROME_PATH=.../chrome npx lighthouse http://127.0.0.1:8123/ --form-factor=mobile --throttling-method=simulate --only-categories=performance,accessibility,seo,best-practices ...
+out/lh-home.json     { performance: 93, accessibility: 97, best-practices: 96, seo: 100 } LCP 2.48s CLS 0
+out/lh-founder.json  { performance: 99, accessibility: 100, best-practices: 92, seo: 100 } LCP 1.54s CLS 0
+```
+Home's LCP (2480ms) clears the spec's <2.5s target by only 19ms **on a local server with zero network latency** — this is the one number I'd flag as at real risk on production and worth Vlado re-running live before calling it done. Everything else clears its target with real margin (Performance ≥90, Accessibility ≥95, SEO 100, CLS 0).
+
+axe-core WCAG2AA: `@axe-core/cli` itself reaches out to `googlechromelabs.github.io` to resolve a Chrome build (blocked by network policy) — ran `axe-core` directly against the pinned Chrome via Playwright instead (`tests/axe.check.js`), same engine and ruleset, no CLI wrapper.
+
+First pass (page load, no settle time) showed violations on the hero lead, hero note, and primary CTA button — all with real design-token colors (`--c-muted` alone is documented in the CSS as 6.1:1) that don't match what axe measured. These are `[data-hero]`/`[data-reveal]` elements with a JS entrance animation (fade/slide on load); axe was catching them mid-transition. Re-ran with a 2s settle wait:
+
+```
+$ node tests/axe.check.js
+=== / ===
+violations (all): 1 | serious/critical: 1
+  [serious] color-contrast: Elements must meet minimum color contrast ratio thresholds (9 node(s))
+=== /founder ===
+violations (all): 0 | serious/critical: 0
+TOTAL serious/critical violations: 1
+```
+The hero/CTA false positives are gone. What's left is real and narrower: the 3 scroll-story steps (`article[data-step="1/2/3"]`, the "Kako radi" 4-step visual) sit at `opacity:.3` until the user scrolls to them — by design, that's the reveal effect (commit `dac1f8c`). At 0.3 opacity the effective blended color fails contrast (ratios 1.5–1.9 against a 3:1/4.5:1 requirement); once a step becomes `.on` (opacity 1) it's fine, and `prefers-reduced-motion` users already get `opacity:1` on all steps permanently (existing CSS: `html:not(.js-story) .story-step{opacity:1}`).
+
+I didn't touch this: raising the inactive-step opacity enough to pass contrast (roughly 0.3 → ~0.6+) would visibly dull the reveal effect this feature was built for — that's a design tradeoff, not a color-picking bug, and outside "popravi samo boje" without a design call.
+
+**WAITING VLADO:** pick one for the 3 scroll-story steps — (a) raise inactive-step opacity to whatever still passes contrast (I can compute and ship the exact value once you say go), or (b) leave as-is, since screen readers read the text regardless of opacity and reduced-motion users already see full contrast — this only affects sighted, motion-enabled users who haven't scrolled to a step yet, and self-corrects the moment they do.
+
+Manual checks skipped for the same reason as everything else here (no live URL): iPhone SE (375px) horizontal-scroll check, CTA tap-target height — these are unchanged from before this PR touched anything, so no regression risk, but worth Vlado's 60-second manual pass on the promoted preview.
+
+**Verdict:** PASS on Performance/SEO/Best-Practices/CLS, PASS on accessibility except the one flagged design tradeoff above, LCP flagged as at-risk pending a live re-run.
+
 ---
