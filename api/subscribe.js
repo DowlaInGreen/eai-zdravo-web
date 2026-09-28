@@ -59,6 +59,7 @@ module.exports = async function handler(req, res) {
     FIRSTNAME: name || undefined,
     PAKET: paket,
     IZVOR: String(data.utm_source || 'web').slice(0, 60),
+    UTM_MEDIJ: String(data.utm_medium || '').slice(0, 60) || undefined,
     KAMPANJA: String(data.utm_campaign || '').slice(0, 60) || undefined,
     PRIVOLA_DATUM: new Date().toISOString().slice(0, 10),
   };

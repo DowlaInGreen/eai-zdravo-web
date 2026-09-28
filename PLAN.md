@@ -103,4 +103,39 @@ Running 4 tests using 1 worker
 ```
 **Verdict: PASS**, 4/4 (spec asked for 3/3 — added a 4th covering the consent-reset link explicitly since that was called out as broken in the spec's audit note). Re-run against the real domain once network access opens, to catch anything a local server can't (real TLS, real `connect.facebook.net` reachability) — command is identical, just point `baseURL` at the live URL.
 
+### L1-#19 — Vercel Web Analytics + custom events + UTM: DONE code-side, WAITING VLADO (dashboard toggle + live verify)
+
+Added `assets/analytics.js` (the `window.va` queue shim + an `eaiEvent()` wrapper) and `<script defer src="/_vercel/insights/script.js"></script>` to all 6 pages (`/`, `/founder`, `/privatnost`, `/uvjeti`, `/hvala`, `/404`). Cookieless — no consent needed, per Vercel's own Web Analytics model; noted in `/privatnost` already (see #1).
+
+Custom events wired:
+- `founder_view` — fires on `/founder` load.
+- `cta_click` — fires on every `[data-paket]` click on `/` and every `a[href="#rezervacija"]` click on `/founder`, with the target `paket` as data.
+- `signup_submit` — fires on successful `/api/subscribe` response on both forms, with the chosen `paket`.
+
+UTM gap found and fixed: the client only read/sent `utm_source` and `utm_campaign` — `utm_medium` was silently dropped end-to-end, which the spec flags as the "only way to measure which channel converts." Fixed in both forms' fetch payloads and in `api/subscribe.js` (`UTM_MEDIJ` attribute, following the existing `IZVOR`/`KAMPANJA` pattern including the existing retry-without-custom-attributes fallback if Brevo doesn't have the field yet). Updated `AGENT.md`'s Brevo attribute checklist to include `UTM_MEDIJ`.
+
+```
+$ for f in index.html founder.html privatnost.html uvjeti.html hvala.html 404.html; do echo -n "$f: "; grep -c "_vercel/insights/script.js" "$f"; done
+index.html: 1
+founder.html: 1
+privatnost.html: 1
+uvjeti.html: 1
+hvala.html: 1
+404.html: 1
+
+$ grep -c "utm_medium" index.html founder.html api/subscribe.js
+index.html:1
+founder.html:1
+api/subscribe.js:1
+
+$ node -e "require('./api/subscribe.js')" && echo "subscribe.js: no syntax errors"
+subscribe.js: no syntax errors
+```
+Smoke-tested all 6 pages + a 404 through a headless Chrome against the local static server: all load (200/404 as expected), zero JS errors introduced by these edits (the only console noise is the local server's expected 404 on `/_vercel/insights/script.js`, which only exists on real Vercel, and an unrelated font-preconnect TLS notice from this sandbox's proxy).
+
+**WAITING VLADO:**
+1. Confirm **Web Analytics is switched on** for the `eai-zdravo-web` project (Vercel dashboard → project → Analytics tab → Enable). I found no safe, confirmed API field to flip this from here — the generic project-update endpoint's schema didn't show one I could point to with confidence, and this isn't a call to guess on a live project.
+2. Create the `UTM_MEDIJ` attribute in Brevo (Contacts → Settings → Attributes), same as the existing ones.
+3. Live verify (once access opens or Vlado runs it): open `/?utm_source=test&utm_medium=l1&utm_campaign=verify`, submit a real test signup, confirm the Brevo contact has `IZVOR=test`, `UTM_MEDIJ=l1`, `KAMPANJA=verify`, and that a `founder_view`/`cta_click`/`signup_submit` event shows up in the Vercel Analytics dashboard.
+
 ---

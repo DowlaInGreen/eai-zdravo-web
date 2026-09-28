@@ -200,6 +200,7 @@ footer a{color:var(--dark-2)} footer a:hover{color:#fff}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
 </style>
 <script src="/assets/consent.js?v=3" defer></script>
+<script src="/assets/analytics.js" defer></script><script defer src="/_vercel/insights/script.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://www.eai-zdravo.com/#org","@type":"Organization","name":"E-AI zdravo","url":"https://www.eai-zdravo.com/"},{"@type":"Product","name":"E-AI zdravo Founder paket","description":"Tjedni plan ručkova i večera prema dnevnim cijenama u hrvatskim trgovinama: 14 obroka, kuhanje nedjeljom i srijedom, jedna shopping lista. Founder paket 17,99 €: 12 PDF kuharica (120 recepata) + 3 mjeseca platforme.","brand":{"@id":"https://www.eai-zdravo.com/#org"},"image":"https://www.eai-zdravo.com/assets/og.png","offers":{"@type":"Offer","price":"17.99","priceCurrency":"EUR","availability":"https://schema.org/PreOrder","url":"https://www.eai-zdravo.com/founder","seller":{"@id":"https://www.eai-zdravo.com/#org"}}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Koliko vremena treba za kuhanje?","acceptedAnswer":{"@type":"Answer","text":"Dvije sesije tjedno — nedjelja (3 jela) i srijeda (2 jela). Plan ti daje redoslijed operacija da radiš više stvari paralelno."}},{"@type":"Question","name":"Imamo alergiju ili ne jedemo gluten. Radi li to?","acceptedAnswer":{"@type":"Answer","text":"Da. Isključene namirnice sustav filtrira prije slaganja plana, ne nakon. Testni bezglutenski plan za dvoje stao je u 55 € tjedno."}},{"@type":"Question","name":"Koje trgovine?","acceptedAnswer":{"@type":"Answer","text":"Velike lance koji objavljuju dnevne cjenike. Plan koristi najviše 3 trgovine, a na listi piše datum cijena — akcije se mijenjaju, pa provjeri na polici."}},{"@type":"Question","name":"Je li ovo dijeta?","acceptedAnswer":{"@type":"Answer","text":"Ne. Ovo je planiranje obroka, kupnje i pripreme. Nije medicinski ni nutricionistički savjet."}},{"@type":"Question","name":"Za djecu?","acceptedAnswer":{"@type":"Answer","text":"Porcije se računaju prema dobi svakog člana kućanstva, pa se ne kuha ni previše ni premalo."}},{"@type":"Question","name":"Kako funkcionira rezervacija?","acceptedAnswer":{"@type":"Answer","text":"Ostaviš email i potvrdiš prijavu. Plaćanje još nije otvoreno — kad se otvori, dobiješ poruku s Founder cijenom od 17,99 €."}}]}]}</script>
 </head>
 <body>
@@ -503,13 +504,14 @@ footer a{color:var(--dark-2)} footer a:hover{color:#fff}
 </style>
 <script>
 (function(){
+  if(window.eaiEvent) window.eaiEvent('founder_view');
   var form=document.getElementById('signup'), msg=document.getElementById('form-msg'),
       btn=form.querySelector('button[type=submit]'), swap=document.getElementById('swap'), paket='podrzavatelj';
   var L={podrzavatelj:'Rezerviraj Founder paket',besplatno:'Pošalji mi 2 knjige'};
   function setPaket(p){ paket=L[p]?p:'podrzavatelj'; btn.textContent=L[paket]; swap.hidden=(paket==='podrzavatelj'); }
   function focusEmail(){ setTimeout(function(){ document.getElementById('f-email').focus({preventScroll:true}); },450); }
   document.querySelectorAll('a[href="#rezervacija"]').forEach(function(a){
-    a.addEventListener('click',function(){ setPaket(a.getAttribute('data-paket')||'podrzavatelj'); focusEmail(); });
+    a.addEventListener('click',function(){ if(window.eaiEvent) window.eaiEvent('cta_click',{paket:a.getAttribute('data-paket')||'podrzavatelj'}); setPaket(a.getAttribute('data-paket')||'podrzavatelj'); focusEmail(); });
   });
   swap.addEventListener('click',function(){ setPaket('podrzavatelj'); });
   var qp=new URLSearchParams(location.search).get('paket');
@@ -524,11 +526,11 @@ footer a{color:var(--dark-2)} footer a:hover{color:#fff}
     var meta=window.eaiMeta?window.eaiMeta():{meta_consent:false};
     fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
       email:email,name:form.name.value.trim(),paket:paket,consent:true,website:form.website.value,
-      utm_source:params.get('utm_source')||'',utm_campaign:params.get('utm_campaign')||'',
+      utm_source:params.get('utm_source')||'',utm_medium:params.get('utm_medium')||'',utm_campaign:params.get('utm_campaign')||'',
       meta_consent:meta.meta_consent===true,event_id:meta.event_id||'',fbp:meta.fbp||'',fbc:meta.fbc||'',source_url:meta.source_url||''
     })}).then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return {ok:r.ok,j:j}; }); })
     .then(function(res){
-      if(res.ok){ if(window.eaiTrack) window.eaiTrack('Lead',{content_name:paket},meta.event_id?{eventID:meta.event_id}:undefined); msg.className='form-msg ok'; msg.textContent=(paket==='besplatno'?'Gotovo! ':'Rezervirano! ')+'Provjeri inbox (i spam) i potvrdi prijavu.'; form.reset(); }
+      if(res.ok){ if(window.eaiTrack) window.eaiTrack('Lead',{content_name:paket},meta.event_id?{eventID:meta.event_id}:undefined); if(window.eaiEvent) window.eaiEvent('signup_submit',{paket:paket}); msg.className='form-msg ok'; msg.textContent=(paket==='besplatno'?'Gotovo! ':'Rezervirano! ')+'Provjeri inbox (i spam) i potvrdi prijavu.'; form.reset(); }
       else { msg.className='form-msg err'; msg.textContent=(res.j&&res.j.error)||'Nešto nije u redu. Pokušaj ponovno ili piši na info@eai-zdravo.com.'; }
     }).catch(function(){ msg.className='form-msg err'; msg.textContent='Nema veze s poslužiteljem. Pokušaj ponovno.'; })
     .finally(function(){ btn.disabled=false; if(btn.textContent==='Šaljem…') btn.textContent=old; });

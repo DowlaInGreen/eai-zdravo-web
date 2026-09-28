@@ -38,7 +38,7 @@ Dok varijable nisu postavljene, forma vraća poruku "Prijave se otvaraju uskoro"
 ## Brevo postavke (jednokratno, ručno u Brevo sučelju)
 1. Senders & Domains → dodaj `eai-zdravo.com`, upiši DKIM/verifikacijske zapise u DNS → status "Authenticated".
 2. Contacts → Lists: `01 Besplatno`, `02 Podržavatelj`, `03 Osnivač`, `04 Fitness`, `05 Zdravlje` → ID-eve upiši u Vercel env.
-3. Contacts → Settings → Attributes (text): `PAKET`, `IZVOR`, `KAMPANJA`, `PRIVOLA_DATUM`.
+3. Contacts → Settings → Attributes (text): `PAKET`, `IZVOR`, `UTM_MEDIJ`, `KAMPANJA`, `PRIVOLA_DATUM`.
 4. Templates → "Double opt-in" predložak s gumbom `{{ doubleoptin }}` → ID u `BREVO_DOI_TEMPLATE_ID`.
 5. Automations → "Contact added to list 01" → mail 1 (odmah: 2 PDF-a), mail 2 (+2 dana), mail 3 (+4), mail 4 (+7, ponuda 17,99), mail 5 (+10, osnivač).
 
