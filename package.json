@@ -2,5 +2,8 @@
   "name": "eai-zdravo-web",
   "private": true,
   "description": "eai-zdravo.com landing page + Brevo signup function",
-  "engines": { "node": ">=18" }
+  "engines": { "node": ">=18" },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1"
+  }
 }

@@ -81,6 +81,26 @@ $ ls uvjeti.html && grep -c "NAPOMENA\|\[" uvjeti.html
 uvjeti.html
 0
 ```
-No bracket placeholders in the page. Live verify (`curl -sI .../uvjeti` → 200, `curl .../ | grep -c '/uvjeti'` ≥ 1) runs against the preview URL once pushed — see live-verify batch below.
+No bracket placeholders in the page. Live verify (`curl -sI .../uvjeti` → 200, `curl .../ | grep -c '/uvjeti'` ≥ 1) is **WAITING VLADO (network policy)** — same blocker as #3's live leg; command is ready to copy-paste once access is open or on his own machine.
+
+### L1-#5 — Cookie consent proof: PASS
+
+Inspected `assets/consent.js` before writing anything: the pixel already only loads inside the "Prihvati" click handler (`loadPixel()`), "Odbij" only sets `eai_consent=no` and removes the banner, and every `[data-consent-reset]` link (the /privatnost "Postavke kolačića" link already has this attribute) already clears consent and reopens the banner. `api/subscribe.js` already gates `sendLead()` on `data.meta_consent === true`, which `assets/consent.js`'s `eaiMeta()` only sets when consent = yes. **This item was already fixed by earlier commits** (`1d4bb0f`, `e4ae9b8` per git log) — nothing to change in code, only to prove it.
+
+Network policy blocks the real domain, so the proof runs against a local static server (`tests/static-server.js`, mirrors `vercel.json`'s `cleanUrls`) instead of the live/preview URL — that's a same-code, different-host substitution: the JS under test is byte-identical to what ships. Added `@playwright/test` as a devDependency (`package.json`) and pinned `launchOptions.executablePath` to the pre-installed Chrome at `/opt/pw-browsers/chromium-1194` (this session's pinned Playwright version doesn't match the pre-downloaded browser revision, and there's no route to Playwright's CDN to fetch a new one).
+
+```
+$ npx playwright test tests/consent.spec.ts --reporter=list
+
+Running 4 tests using 1 worker
+
+  ✓  1 tests/consent.spec.ts:14:5 › nijedan Meta request prije klika (1.2s)
+  ✓  2 tests/consent.spec.ts:23:5 › klik "Odbij" — i dalje nula Meta requestova, banner se ne vraća, Pixel se ne učitava (1.6s)
+  ✓  3 tests/consent.spec.ts:41:5 › klik "Prihvati" — fbevents.js se pokušava učitati (1.1s)
+  ✓  4 tests/consent.spec.ts:54:5 › "Postavke kolačića" na /privatnost ponovno otvara banner (1.4s)
+
+  4 passed (7.6s)
+```
+**Verdict: PASS**, 4/4 (spec asked for 3/3 — added a 4th covering the consent-reset link explicitly since that was called out as broken in the spec's audit note). Re-run against the real domain once network access opens, to catch anything a local server can't (real TLS, real `connect.facebook.net` reachability) — command is identical, just point `baseURL` at the live URL.
 
 ---
