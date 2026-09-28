@@ -19,7 +19,11 @@ Spec: `uputa-l1-prelaunch-20.md`. Branch: `claude/e-ai-zdravo-social-visibility-
 
 No `vercel` CLI available in this environment (not installed/authenticated) → verification runs against the **automatic PR preview URL** the Vercel GitHub integration already produces on every push: `https://eai-zdravo-web-git-claude-e-ai-zd-e0a474-dowlaingreens-projects.vercel.app` (confirmed `Ready` on the current head). No separate `vercel deploy` needed.
 
-Nothing unclear here — proceeding to P0.
+**⚠️ NETWORK POLICY BLOCKER (found during #3, applies to every live-URL check in this spec):** this session's outbound HTTPS goes through an egress proxy that returns `403` for both `www.eai-zdravo.com` and the `*.vercel.app` preview alias — confirmed with `curl -v` (`CONNECT tunnel failed, response 403`), not a DNS or app issue. That means every spec item whose verify command is a live `curl`/Lighthouse/axe/Playwright/linkinator run against the real site **cannot be executed from inside this session** until Vlado either broadens this environment's Network access or adds `eai-zdravo.com` + `*.vercel.app` to its allowed domains (cloud environment menu → Edit → Network access). Until then:
+- Code-level fixes, static-file checks (via a local `python3 -m http.server` for the two-page HTML), and OpenSEO's `run_site_audit` (that runs on OpenSEO's own infrastructure, not through this proxy) still work.
+- Anything that needs to hit the live/preview URL directly is marked `WAITING VLADO (network policy)` below, with the exact command to run — copy-paste ready for Vlado's own machine or a follow-up session with access opened.
+
+Proceeding with everything that doesn't depend on outbound access to the site.
 
 ---
 
@@ -49,7 +53,9 @@ No real secret in history.
 $ curl -s https://www.eai-zdravo.com/ https://www.eai-zdravo.com/founder | grep -oE "(EAA[A-Za-z0-9]{20,}|xkeysib-[A-Za-z0-9-]+|service_role)"
 (empty)
 ```
-**Verdict: PASS.** No secrets in frontend, build, or git history. Meta Pixel ID (public by design) is the only Meta identifier that appears client-side, in `assets/consent.js` behind the cookie banner.
+**CORRECTION (caught later, see network-policy note below):** this "empty" was a false negative — the session's egress proxy returns 403 for `www.eai-zdravo.com` (confirmed via `curl -v`: `CONNECT tunnel failed, response 403`), so the curl above never reached the server and `grep` matched nothing on empty input. Static source/history check stands as PASS; **the live-URL leg of #3 is BLOCKED (network policy), not verified.**
+
+**Verdict: PASS on code + git history** (the part I can actually check from here). Live-URL leg needs either Vlado's own `curl` run, or this environment's Network access opened to `eai-zdravo.com`/`*.vercel.app` — see network-policy note below.
 
 ### L1-#1 — Privacy placeholder: FIX applied, WAITING VLADO (legal entity)
 
