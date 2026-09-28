@@ -363,4 +363,24 @@ Live verify (`curl -sI https://www.eai-zdravo.com/favicon.ico` → 200) is **WAI
 
 **Verdict: PASS.**
 
+### L1-#7 — Social preview: FIX applied, PASS (one item WAITING VLADO — needs a design asset)
+
+```
+$ python3 -c "import struct; ..." # assets/og.png
+1200 x 630, 136284 bytes (<300 KB target)
+```
+Already correct. Added the missing meta on both `/` and `/founder`: `og:image:width/height/alt`, `og:locale=hr_HR`, `og:site_name`, `twitter:image` (was missing — `twitter:card` existed but had no image to show).
+
+```
+$ grep -c 'og:image:width\|og:image:height\|og:image:alt\|og:locale\|og:site_name\|twitter:image' index.html founder.html
+index.html: 6
+founder.html: 6
+```
+
+**WAITING VLADO:** the spec also asks for a *separate* `/founder` OG image showing "17,99 €" (Founder ads share that link). That's a designed graphic, not a meta-tag change — I'm not generating a brand visual unilaterally. `/founder` currently reuses the same `og.png` as `/`, with an `og:image:alt` that at least states the price in text. Send me the asset (or say go-ahead to draft one) and I'll wire it in.
+
+Live verify (Facebook Sharing Debugger, opengraph.xyz screenshots) is **WAITING VLADO (network policy)** — both need to fetch the live URL from outside this session anyway (Facebook's own crawler), so this one was never going to run from here regardless of the proxy issue.
+
+**Verdict: PASS** on the meta-tag fixes; founder-specific image is a separate, explicit ask for Vlado.
+
 ---
