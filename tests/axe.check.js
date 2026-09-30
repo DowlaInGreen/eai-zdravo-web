@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const axeSource = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
-const pages = ['/', '/founder'];
+const pages = ['/', '/founder', '/znanje', '/treninzi'];
 
 (async () => {
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });

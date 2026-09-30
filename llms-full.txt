@@ -37,6 +37,8 @@ Nije dijeta, prehrambeni ni medicinski savjet. Ne daje zdravstvene tvrdnje (mrš
 
 - Početna: https://www.eai-zdravo.com/
 - Founder paket: https://www.eai-zdravo.com/founder
+- Baza znanja — 5 najpopularnijih dijeta: https://www.eai-zdravo.com/znanje
+- Baza znanja — 5 najpopularnijih programa treninga: https://www.eai-zdravo.com/treninzi
 - Privatnost: https://www.eai-zdravo.com/privatnost
 - Uvjeti korištenja: https://www.eai-zdravo.com/uvjeti
 
