@@ -1,0 +1,47 @@
+# E-AI zdravo — puni opis za AI asistente
+
+Zadnje ažurirano: 2026-09-28
+
+## Što je E-AI zdravo
+
+Sustav koji slaže tjedni plan ručkova i večera za obitelj prema dnevnim cijenama u hrvatskim trgovinama. Pozicioniranje: "14 obroka. 2 kuhanja. 1 shopping lista." Kuha se nedjeljom i srijedom, jede se cijeli tjedan.
+
+## Kako radi
+
+1. Svako jutro sustav čita službene cjenike trgovačkih lanaca (objavljeni do 08:00) i računa koliko jestivog proteina dobiješ za euro.
+2. Slaže jednu shopping listu za cijeli tjedan, grupiranu po trgovini i količinama u pakiranjima.
+3. Nedjeljom se kuhaju 3 jela u jednoj sesiji — pokrivaju ručkove i večere od ponedjeljka do srijede.
+4. Srijedom se kuhaju još 2 jela — pokrivaju ostatak tjedna. Ukupno 14 obroka iz 2 kuhanja.
+
+Isključene namirnice (alergije, gluten) filtriraju se prije slaganja plana, ne nakon. Porcije se računaju prema dobi svakog člana kućanstva.
+
+## Za koga
+
+Obitelji i roditelji u Hrvatskoj (fokus Zagreb) koji žele planirati obroke, smanjiti trošak i vrijeme kuhanja bez odricanja od kvalitete.
+
+## Cijene i ponuda
+
+- Founder paket: 17,99 € jednokratno — 12 PDF kuharica (120 recepata s makronutrijentima) + 3 mjeseca pristupa platformi. Status: PreOrder — plaćanje se otvara nakon registracije poslovnog subjekta, do tada se rezervira mjesto prijavom.
+- Besplatno: 2 knjige recepata uz prijavu na listu ranog pristupa.
+- Primjer verificiranog plana: bezglutenski tjedni plan za dvoje = 55 € tjedno (izvor: FAQ na /founder, cijene provjerene u trenutku objave plana).
+
+## Metodologija
+
+Planovi se slažu rangiranjem namirnica po jestivom proteinu po euru, koristeći dnevne cjenike najvećih hrvatskih trgovačkih lanaca (najviše 3 lanca po planu). Datum cijena je uvijek naveden na listi jer se akcije mijenjaju.
+
+## Što E-AI zdravo NIJE
+
+Nije dijeta, prehrambeni ni medicinski savjet. Ne daje zdravstvene tvrdnje (mršavljenje, liječenje, poboljšanje zdravlja). Planira isključivo nabavu, pripremu i organizaciju obroka. Za zdravstvena pitanja uputa je liječnik ili nutricionist.
+
+## Stranice
+
+- Početna: https://www.eai-zdravo.com/
+- Founder paket: https://www.eai-zdravo.com/founder
+- Baza znanja — 5 najpopularnijih dijeta: https://www.eai-zdravo.com/znanje
+- Baza znanja — 5 najpopularnijih programa treninga: https://www.eai-zdravo.com/treninzi
+- Privatnost: https://www.eai-zdravo.com/privatnost
+- Uvjeti korištenja: https://www.eai-zdravo.com/uvjeti
+
+## Tvrtka
+
+E AI Zdravo, Zagreb, Hrvatska. Kontakt: info@eai-zdravo.com. Instagram: https://www.instagram.com/eai_zdravo/

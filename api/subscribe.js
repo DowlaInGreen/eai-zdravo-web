@@ -5,9 +5,14 @@
 //   BREVO_LIST_BESPLATNO     required — list id (number)
 //   BREVO_LIST_PODRZAVATELJ, BREVO_LIST_OSNIVAC, BREVO_LIST_FITNESS, BREVO_LIST_ZDRAVLJE  optional; fall back to BESPLATNO
 //   SITE_URL                 optional, default https://www.eai-zdravo.com
+//
+// Spam guards (L1-#18): honeypot field, minimum fill time, in-memory rate limit
+// (5 / IP / 10 min — see api/_lib/rate-limit.js for the "starting point" caveat).
 
 const { b64url, sign } = require('./_lib/token');
 const { sendLead } = require('./_lib/meta-capi');
+const rateLimit = require('./_lib/rate-limit');
+const MIN_FILL_MS = 2000;
 const PAKETI = ['besplatno', 'podrzavatelj', 'osnivac', 'fitness', 'zdravlje'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -42,8 +47,17 @@ module.exports = async function handler(req, res) {
   // Honeypot: bots fill hidden "website" field. Pretend success.
   if (data.website) return res.status(200).json({ ok: true });
 
-  const email = String(data.email || '').trim().toLowerCase().slice(0, 254);
-  const name = String(data.name || '').trim().slice(0, 80);
+  // Minimum fill time: a real person takes >2s to read + type. Pretend success,
+  // same as the honeypot — don't tip off bots that this check exists.
+  const loadedAt = Number(data.loaded_at);
+  if (Number.isFinite(loadedAt) && Date.now() - loadedAt < MIN_FILL_MS) return res.status(200).json({ ok: true });
+
+  if (!rateLimit.allow(req)) return res.status(429).json({ error: 'Previše prijava u kratkom roku. Pokušaj ponovno za par minuta.' });
+
+  const emailRaw = String(data.email || '').trim().toLowerCase();
+  if (!emailRaw || emailRaw.length > 254) return res.status(400).json({ error: 'Upiši ispravnu email adresu.' });
+  const email = emailRaw;
+  const name = String(data.name || '').replace(/<[^>]*>/g, '').trim().slice(0, 80);
   const paket = PAKETI.includes(data.paket) ? data.paket : 'besplatno';
 
   if (!EMAIL_RE.test(email)) return res.status(400).json({ error: 'Upiši ispravnu email adresu.' });
@@ -59,6 +73,7 @@ module.exports = async function handler(req, res) {
     FIRSTNAME: name || undefined,
     PAKET: paket,
     IZVOR: String(data.utm_source || 'web').slice(0, 60),
+    UTM_MEDIJ: String(data.utm_medium || '').slice(0, 60) || undefined,
     KAMPANJA: String(data.utm_campaign || '').slice(0, 60) || undefined,
     PRIVOLA_DATUM: new Date().toISOString().slice(0, 10),
   };
