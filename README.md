@@ -10,3 +10,8 @@ Landing stranica za **eai-zdravo.com** — "Jedite zdravo i povoljno".
 Deploy: svaki push na `main` automatski ide na Vercel. Upute za održavanje i agenta: [AGENT.md](AGENT.md).
 
 Lokalno: `python3 -m http.server 8000` (forma radi samo na Vercelu).
+
+
+## Stipani
+
+Privatni obiteljski dashboard (Next.js) živi u [`stipani/`](stipani/README.md) i deploya se kao zaseban Vercel projekt (Root Directory: `stipani`). Ne utječe na ovaj statički web.
