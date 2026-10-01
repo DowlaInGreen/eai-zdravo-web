@@ -52,6 +52,16 @@
   ],
   "redirects": [
     {
+      "source": "/znanje",
+      "destination": "/prehrana",
+      "permanent": true
+    },
+    {
+      "source": "/treninzi",
+      "destination": "/trening",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
