@@ -3,13 +3,13 @@ title: "Obroci za trudnice"
 category: kuharice
 tags: [trudnoca, folati, zeljezo]
 sources:
-  - "EFSA — Scientific Opinion on Dietary Reference Values for folate"
+  - "EFSA — Scientific Opinion on Dietary Reference Values for folate (2014): https://efsa.europa.eu/en/efsajournal/pub/3893"
   - "Linus Pauling Institute (Oregon State University) — Pregnancy and Lactation"
 ---
 
 Trudnoća povećava potrebu za nekoliko hranjivih tvari znatno više nego što raste ukupni energetski unos — to je ključna razlika u odnosu na "jesti za dvoje", popularno, ali netočno shvaćanje.
 
-**Folati** rastu najviše u prvom tromjesečju, kad se razvija neuralna cijev ploda; EFSA navodi referentni unos od 600 µg DFE dnevno za trudnice, što je 5 do 10 puta više u odnosu na potrebe prije trudnoće. Dobri prehrambeni izvori: tamnozeleno lisnato povrće, mahunarke, citrusi, cjelovite žitarice — uz liječnički preporučen dodatak folne kiseline, osobito u ranoj trudnoći.
+**Folati** su posebno važni u ranoj trudnoći, kad se razvija neuralna cijev ploda. EFSA navodi 600 µg DFE dnevno za trudnice, naspram 330 µg DFE za odrasle općenito — otprilike 1,8 puta više. Dobri prehrambeni izvori: tamnozeleno lisnato povrće, mahunarke, citrusi, cjelovite žitarice — uz liječnički preporučen dodatak folne kiseline, osobito u ranoj trudnoći.
 
 **Željezo** raste postupno kroz trudnoću: apsorbirano željezo potrebno je oko 0,8 mg dnevno u prvom tromjesečju, 4-5 mg u drugom, i više od 6 mg u trećem, zbog rasta posteljice, ploda i povećanog volumena majčine krvi. Izvori s boljom apsorpcijom: crveno meso, perad, riba; biljni izvori (mahunarke, integralne žitarice) apsorbiraju se bolje uz vitamin C u istom obroku (npr. leća s paprikom ili limunom).
 

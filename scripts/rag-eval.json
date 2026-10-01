@@ -1,0 +1,28 @@
+{
+  "_opis": "Zlatni skup pitanja za mjerenje retrievala. expect = slugovi od kojih barem jedan mora biti u top 5. expect=[] znači da pitanje NIJE pokriveno bazom i najbolji rezultat mora pasti ispod praga (sustav treba odbiti). Proširi kad dodaješ sadržaj.",
+  "cases": [
+    { "q": "Koliko folata treba trudnica?", "expect": ["obroci-za-trudnice"] },
+    { "q": "Koje ribe izbjegavati u trudnoći?", "expect": ["obroci-za-trudnice"] },
+    { "q": "Koliko proteina dodatno treba dojilja?", "expect": ["obroci-za-dojilje", "dijeta-visokoproteinska"] },
+    { "q": "Kolike su porcije za dijete od dvije godine?", "expect": ["obroci-za-obitelj-s-malom-djecom"] },
+    { "q": "Što djetetu spakirati za užinu u školu da izdrži bez hladnjaka?", "expect": ["obroci-za-obitelj-sa-skolskom-djecom"] },
+    { "q": "Koliko proteina trebaju starije osobe?", "expect": ["obroci-za-starije-osobe"] },
+    { "q": "Koliko dana kuhano jelo može stajati u hladnjaku?", "expect": ["meal-prep-za-radni-tjedan"] },
+    { "q": "Što skuhati u nedjelju za cijeli tjedan?", "expect": ["meal-prep-za-radni-tjedan"] },
+    { "q": "Brzi doručak bez kuhanja ujutro", "expect": ["brzi-dorucci"] },
+    { "q": "Kako kuhati samo za sebe a da hrana ne propadne?", "expect": ["obroci-za-samce"] },
+    { "q": "Moj sin trenira, koliko treba jesti?", "expect": ["obroci-za-tinejdzere"] },
+    { "q": "Je li maslinovo ulje dio mediteranske prehrane?", "expect": ["dijeta-mediteranska"] },
+    { "q": "Što je PREDIMED istraživanje?", "expect": ["dijeta-mediteranska"] },
+    { "q": "Uništavaju li proteini bubrege?", "expect": ["dijeta-visokoproteinska"] },
+    { "q": "Je li post 16:8 bolji od brojanja kalorija?", "expect": ["dijeta-intermitentni-post"] },
+    { "q": "Što je keto gripa?", "expect": ["dijeta-ketogena"] },
+    { "q": "Treba li veganima vitamin B12?", "expect": ["dijeta-vegetarijanska-veganska"] },
+    { "q": "Koliko puta tjedno trenirati po push pull legs?", "expect": ["trening-ppl"] },
+    { "q": "Što je German Volume Training 10x10?", "expect": ["trening-gvt"] },
+    { "q": "Koliko traje HIIT trening?", "expect": ["trening-hiit"] },
+    { "q": "Koja je najbolja kriptovaluta za kupiti?", "expect": [] },
+    { "q": "Kako promijeniti gumu na autu?", "expect": [] },
+    { "q": "Koju dozu metformina trebam uzimati?", "expect": [] }
+  ]
+}

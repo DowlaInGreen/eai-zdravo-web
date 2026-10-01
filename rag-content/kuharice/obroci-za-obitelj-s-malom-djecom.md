@@ -4,7 +4,7 @@ category: kuharice
 tags: [djeca, maloljetnici, obitelj, porcije]
 sources:
   - "Infant & Toddler Forum — Portion Sizes for Children 1-4 Years"
-  - "HealthyChildren.org (American Academy of Pediatrics) — Serving Sizes for Toddlers"
+  - "HealthyChildren.org (American Academy of Pediatrics) — Serving Sizes for Toddlers: https://www.healthychildren.org/English/ages-stages/toddler/nutrition/Pages/Serving-Sizes-for-Toddlers.aspx"
 ---
 
 Djeca od 1 do 3 godine ne jedu "manju verziju" odraslog obroka u punom omjeru — njihove porcije su otprilike četvrtina odrasle porcije, a potrebe se razlikuju po skupini namirnica, ne po ukupnoj količini hrane.
@@ -15,4 +15,4 @@ Za obitelj koja kuha jedan obrok za sve, praktičan pristup je "ista baza, prila
 
 Namirnice koje zahtijevaju oprez do 3.-4. godine zbog gušenja: cijelo grožđe i cherry rajčice (prepoloviti po dužini), orašasti plodovi u komadu, tvrdo sirovo povrće poput mrkve (kuhati ili naribati), kokice.
 
-Energetske potrebe variraju po visini i aktivnosti djeteta; orijentacijski izračun je oko 40 kcal po centimetru visine dnevno, ali raspon porcija iz ovog teksta vrijedi kao praktična polazna točka, ne kao strogo pravilo — dijete samo regulira koliko će pojesti kad mu se ponudi raznolika, primjerena hrana.
+Energetske potrebe variraju po visini i aktivnosti djeteta; Američka pedijatrijska akademija navodi orijentacijski oko 40 kcal po inču visine dnevno (otprilike 16 kcal po centimetru; dijete visoko 81 cm tako treba oko 1.300 kcal), ali raspon porcija iz ovog teksta vrijedi kao praktična polazna točka, ne kao strogo pravilo — dijete samo regulira koliko će pojesti kad mu se ponudi raznolika, primjerena hrana.

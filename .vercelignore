@@ -1,3 +1,9 @@
 emails
 AGENT.md
 README.md
+scripts
+tests
+PLAN.md
+uputa-*.md
+agent-prompt-*.md
+playwright.config.ts

@@ -7,7 +7,7 @@ sources: []
 
 Kuhanje za jednu osobu ima drukčiju logiku od kuhanja za obitelj: problem nije količina posla po obroku, nego ponavljanje istog posla svaki dan za samo jednu porciju. Dva pristupa to rješavaju.
 
-**Namjerno kuhanje viška.** Kad se već kuha, isplati se udvostručiti ili utrostručiti količinu i ostatak zamrznuti u porcijama. Jela koja dobro podnose zamrzavanje: variva, gulaši, umaci na bazi rajčice, pečeno meso narezano na odreske, kuhane mahunarke. Jela koja ne podnose dobro: krumpir salate, majoneza-baze, svježa zelena salata, pirjano povrće s visokim udjelom vode (tikvice, krastavac).
+**Namjerno kuhanje viška.** Kad se već kuha, isplati se udvostručiti ili utrostručiti količinu i ostatak zamrznuti u porcijama. Jela koja dobro podnose zamrzavanje: variva, gulaši, umaci na bazi rajčice, pečeno meso narezano na odreske, kuhane mahunarke. Jela koja ne podnose dobro: krumpir salate, majoneza-baze, svježa zelena salata, povrće s visokim udjelom vode (krastavac, svježe tikvice) koje nakon odmrzavanja postaje kašasto.
 
 **Jedna tava, jedan lim.** Za jednu porciju najmanje suđa i najmanje odluka donosi kombinacija bjelančevine + povrće + ugljikohidrat pečeno zajedno na jednom limu (15-20 minuta na 200°C), ili skuhano u jednoj tavi (bjelančevina se prvo zapeče, povrće se doda, na kraju gotov ugljikohidrat poput kuhane riže ili tjestenine).
 

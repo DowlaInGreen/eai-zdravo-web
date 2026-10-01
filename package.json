@@ -5,6 +5,12 @@
   "engines": {
     "node": ">=18"
   },
+  "scripts": {
+    "test:rag": "node tests/rag.check.js",
+    "rag:pages": "node scripts/pages-to-rag.js",
+    "rag:ingest": "node scripts/rag-ingest.js",
+    "rag:eval": "node scripts/rag-eval.js"
+  },
   "dependencies": {
     "pg": "^8.23.1"
   },

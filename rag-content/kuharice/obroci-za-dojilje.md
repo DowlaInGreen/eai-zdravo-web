@@ -3,7 +3,7 @@ title: "Obroci za dojilje"
 category: kuharice
 tags: [dojenje, laktacija, hidratacija]
 sources:
-  - "EFSA — Dietary Reference Values (protein, additional requirements lactation)"
+  - "EFSA — Population reference intakes for protein: https://www.efsa.europa.eu/hr/press/news/120209"
 ---
 
 Dojenje povećava energetske i nutritivne potrebe više nego sama trudnoća, jer tijelo proizvodi hranu za dijete uz vlastite potrebe majke. Procjene dodatnog energetskog unosa kreću se otprilike od 330 do 500 kcal dnevno iznad uobičajenih potreba, ovisno o tome doji li majka isključivo ili djelomično.

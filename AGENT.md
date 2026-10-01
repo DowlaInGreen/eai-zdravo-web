@@ -5,7 +5,7 @@ Upute za AI agenta (ili čovjeka) koji održava ovaj web. Sve promjene idu kroz 
 ## Stack
 - Statički HTML (`index.html`, `hvala.html`, `privatnost.html`, `404.html`), bez build koraka.
 - `api/subscribe.js` — Vercel serverless funkcija: forma → Brevo (double opt-in).
-- `api/ask.js` — RAG upit: embeddings (OpenAI) + pgvector retrieval (Vercel Postgres/Neon) + generacija (Claude). Sadržaj baze znanja u `rag-content/**.md`, upisuje se skriptom `scripts/rag-ingest.js`. Vidi "RAG sustav" ispod.
+- `api/ask.js` — RAG upit: embeddings + pgvector retrieval (Vercel Postgres/Neon) + generacija, sve preko OpenRoutera. Sadržaj baze znanja u `rag-content/**.md`, upisuje se skriptom `scripts/rag-ingest.js`. Vidi "RAG sustav" ispod.
 - Hosting: Vercel projekt `eai-zdravo-web`, tim `dowlaingreens-projects`.
 - Domene: `www.eai-zdravo.com` (kanonska; `eai-zdravo.com` → 308 na www, postavka u Vercelu). `eaizdravo.com`, `e-ai.fit` (+www) → 308 na www.eai-zdravo.com preko `vercel.json` redirects.
 - Pošta: `info@eai-zdravo.com` (Zoho Mail). Slanje newslettera/onboardinga: Brevo, pošiljatelj `info@eai-zdravo.com`.
@@ -35,22 +35,42 @@ Agent NIKAD ne traži, ne ispisuje i ne commita API ključeve. Ključeve upisuje
 | `META_TEST_EVENT_CODE` | `TEST12345` (samo za test, obriši nakon) | ne |
 | `POSTGRES_URL` | (auto, vidi "RAG sustav") | ne — bez nje `/api/ask` vraća 503 |
 | `OPENROUTER_API_KEY` | (tajna, openrouter.ai/keys) | ne — bez nje `/api/ask` vraća 503 |
+| `RAG_MIN_SIMILARITY` | `0.30` (vrijednost iz `npm run rag:eval`) | ne |
 
 Dok varijable nisu postavljene, forma vraća poruku "Prijave se otvaraju uskoro" (HTTP 503) — ništa se ne gubi tiho.
 
 ## RAG sustav (`/api/ask`)
-Arhitektura: Vercel Postgres (Neon) + pgvector, OpenRouter za embeddings (`openai/text-embedding-3-small`) i generaciju (`anthropic/claude-sonnet-5`) — jedan ključ, oba koraka, model po koraku zamjenjiv jednim stringom u `api/ask.js`/`scripts/rag-ingest.js`. Sadržaj: originalni članci u `rag-content/<kategorija>/*.md` (frontmatter: title/category/tags/sources), nikad kopiran tuđi copyrightani tekst — vidi PLAN.md za metodologiju.
+Arhitektura: Vercel Postgres (Neon) + pgvector (HNSW indeks), OpenRouter za embeddings (`openai/text-embedding-3-small`) i generaciju (`anthropic/claude-sonnet-5`) — jedan ključ, oba koraka, model po koraku zamjenjiv jednim stringom u `api/ask.js`/`scripts/rag-ingest.js`.
+
+Sadržaj (`rag-content/<kategorija>/*.md`, frontmatter: title/category/tags/sources):
+- `kuharice/` — originalni članci, pisani ručno. Nikad kopiran tuđi copyrightani tekst; svaka brojka mora imati izvor s URL-om u `sources`.
+- `prehrana/`, `trening/` — GENERIRANO iz `prehrana.html`/`trening.html` (`npm run rag:pages`). Ne uređuj ručno: izmijeni stranicu pa regeneriraj. Test pada ako su zastarjeli.
+
+Ponašanje `/api/ask`:
+- Chunkovi ispod `RAG_MIN_SIMILARITY` (default 0.30) ne idu modelu; ako nijedan ne prođe → `grounded:false` i standardna poruka, bez poziva LLM-a.
+- Prompt: samo iz konteksta, bez dijagnoza/doza/zdravstvenih obećanja, bez preporuke dijete, uputa na liječnika za trudnoću/djecu/bolest/lijekove.
+- `profile` se čisti na poznata polja (`clanova`, `cilj`, `dob`); pitanje max 500 znakova.
+- Upiti se NE spremaju (pitanja mogu sadržavati zdravstvene podatke — GDPR posebna kategorija).
 
 Jednokratna postavka (vlasnik, ne agent):
 1. Vercel projekt → **Storage** tab → **Create Database** → Postgres (Neon) → poveži s projektom `eai-zdravo-web`. Vercel sam upisuje `POSTGRES_URL` u env.
-2. Pokreni shemu jednom: `psql "$POSTGRES_URL" -f scripts/rag-schema.sql`
-3. Napravi račun na openrouter.ai, generiraj ključ, dodaj `OPENROUTER_API_KEY` u Vercel env (Production).
+2. Napravi račun na openrouter.ai, generiraj ključ, dodaj `OPENROUTER_API_KEY` u Vercel env (Production). Postavi mjesečni limit potrošnje na ključu.
+3. Lokalno (env iz Vercela, bez ispisivanja vrijednosti): `vercel env pull .env.rag --environment=production && set -a && . ./.env.rag && set +a`
+4. `psql "$POSTGRES_URL" -f scripts/rag-schema.sql` (idempotentno, sigurno ponoviti)
 
-Punjenje/ažuriranje baze znanja (nakon svakog novog `.md` fajla u `rag-content/`):
+Punjenje / ažuriranje (nakon svake izmjene sadržaja):
 ```bash
-POSTGRES_URL=... OPENROUTER_API_KEY=... node scripts/rag-ingest.js
+npm run test:rag     # offline: parser, sinkronizacija sa stranicama, regresije, /api/ask logika → "0 FAIL"
+npm run rag:ingest   # upisuje samo promijenjene dokumente, briše one kojih više nema
+npm run rag:eval     # recall@5 nad zlatnim pitanjima (scripts/rag-eval.json) + preporučeni prag; cilj ≥ 90 %
 ```
-Idempotentno — ponovno pokretanje nad istim slugom samo ažurira taj dokument.
+Provjera endpointa:
+```bash
+curl -s -X POST https://www.eai-zdravo.com/api/ask -H 'content-type: application/json' \
+  -d '{"question":"Koliko dana kuhano jelo može stajati u hladnjaku?"}'   # grounded:true, izvor meal-prep-za-radni-tjedan
+curl -s -X POST https://www.eai-zdravo.com/api/ask -H 'content-type: application/json' \
+  -d '{"question":"Koja je najbolja kriptovaluta?"}'                        # grounded:false
+```
 
 ## Brevo postavke (jednokratno, ručno u Brevo sučelju)
 1. Senders & Domains → dodaj `eai-zdravo.com`, upiši DKIM/verifikacijske zapise u DNS → status "Authenticated".
