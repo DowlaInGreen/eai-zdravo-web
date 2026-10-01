@@ -1,6 +1,6 @@
-// RAG ingestion: čita rag-content/**/*.md, chunka, embedduje (OpenAI), upisuje u Postgres (pgvector).
+// RAG ingestion: čita rag-content/**/*.md, chunka, embedduje (OpenRouter), upisuje u Postgres (pgvector).
 //
-// Env potreban: POSTGRES_URL (Vercel Postgres/Neon), OPENAI_API_KEY
+// Env potreban: POSTGRES_URL (Vercel Postgres/Neon), OPENROUTER_API_KEY
 // Pokretanje: node scripts/rag-ingest.js
 //
 // Idempotentno: ponovno pokretanje nad istim slugom briše stare chunkove tog
@@ -11,7 +11,7 @@ const path = require('path');
 const { Client } = require('pg');
 
 const CONTENT_DIR = path.join(__dirname, '..', 'rag-content');
-const EMBEDDING_MODEL = 'text-embedding-3-small';
+const EMBEDDING_MODEL = 'openai/text-embedding-3-small';
 const CHUNK_SIZE = 700; // znakova po chunku, grubo ~150-200 tokena
 const CHUNK_OVERLAP = 100;
 
@@ -69,15 +69,17 @@ function chunkText(text, size, overlap) {
 }
 
 async function embed(texts) {
-  const res = await fetch('https://api.openai.com/v1/embeddings', {
+  const res = await fetch('https://openrouter.ai/api/v1/embeddings', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      'HTTP-Referer': process.env.SITE_URL || 'https://www.eai-zdravo.com',
+      'X-Title': 'E-AI zdravo RAG ingest',
     },
     body: JSON.stringify({ model: EMBEDDING_MODEL, input: texts }),
   });
-  if (!res.ok) throw new Error(`OpenAI embeddings ${res.status}: ${await res.text()}`);
+  if (!res.ok) throw new Error(`OpenRouter embeddings ${res.status}: ${await res.text()}`);
   const json = await res.json();
   return json.data.map((d) => d.embedding);
 }
@@ -94,7 +96,7 @@ function findMarkdownFiles(dir) {
 
 async function main() {
   if (!process.env.POSTGRES_URL) throw new Error('POSTGRES_URL nije postavljen');
-  if (!process.env.OPENAI_API_KEY) throw new Error('OPENAI_API_KEY nije postavljen');
+  if (!process.env.OPENROUTER_API_KEY) throw new Error('OPENROUTER_API_KEY nije postavljen');
 
   const files = findMarkdownFiles(CONTENT_DIR);
   console.log(`Pronađeno ${files.length} .md fajlova u rag-content/`);

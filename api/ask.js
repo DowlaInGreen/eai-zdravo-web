@@ -1,11 +1,11 @@
 // POST /api/ask — RAG upit: embeddduje pitanje, dohvaća najbliže chunkove iz
-// Postgresa (pgvector cosine), generira odgovor preko Claudea utemeljen samo
-// na dohvaćenom kontekstu, s popisom izvornih članaka na dnu.
+// Postgresa (pgvector cosine), generira odgovor utemeljen samo na dohvaćenom
+// kontekstu, s popisom izvornih članaka na dnu. Embeddings i generacija idu
+// preko OpenRouter-a (jedan ključ, lako zamjenjiv model za svaki korak).
 //
 // Env (set in Vercel → Project → Settings → Environment Variables, never in code):
 //   POSTGRES_URL       required — Vercel Postgres (Neon), Storage tab → Create Database
-//   OPENAI_API_KEY     required — za embeddings (text-embedding-3-small)
-//   ANTHROPIC_API_KEY  required — za generaciju odgovora
+//   OPENROUTER_API_KEY required — openrouter.ai, pokriva i embeddings i generaciju
 //
 // Dok varijable nisu postavljene, endpoint vraća 503 — ništa se ne lomi tiho.
 //
@@ -15,17 +15,27 @@
 const { Client } = require('pg');
 const rateLimit = require('./_lib/rate-limit');
 
-const EMBEDDING_MODEL = 'text-embedding-3-small';
-const CHAT_MODEL = 'claude-sonnet-5';
+const EMBEDDING_MODEL = 'openai/text-embedding-3-small';
+const CHAT_MODEL = 'anthropic/claude-sonnet-5'; // zamijeni jednim stringom za jeftiniji/drugi model
 const TOP_K = 5;
+const SITE_URL = process.env.SITE_URL || 'https://www.eai-zdravo.com';
+
+function openRouterHeaders() {
+  return {
+    'content-type': 'application/json',
+    authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+    'HTTP-Referer': SITE_URL,
+    'X-Title': 'E-AI zdravo RAG',
+  };
+}
 
 async function embedQuery(text) {
-  const r = await fetch('https://api.openai.com/v1/embeddings', {
+  const r = await fetch('https://openrouter.ai/api/v1/embeddings', {
     method: 'POST',
-    headers: { 'content-type': 'application/json', authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
+    headers: openRouterHeaders(),
     body: JSON.stringify({ model: EMBEDDING_MODEL, input: text }),
   });
-  if (!r.ok) throw new Error(`OpenAI embeddings ${r.status}: ${await r.text()}`);
+  if (!r.ok) throw new Error(`OpenRouter embeddings ${r.status}: ${await r.text()}`);
   const json = await r.json();
   return json.data[0].embedding;
 }
@@ -60,23 +70,21 @@ async function generateAnswer(question, chunks, profile) {
     `Ne izmišljaj činjenice izvan konteksta. Ako kontekst ne sadrži odgovor, reci da nemaš tu informaciju ` +
     `umjesto da nagađaš. Piši na hrvatskom, kratko i praktično. Na kraju odgovora navedi brojeve izvora u ` +
     `uglatim zagradama koje si koristio, npr. [1][3].`;
-  const r = await fetch('https://api.anthropic.com/v1/messages', {
+  const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      'x-api-key': process.env.ANTHROPIC_API_KEY,
-      'anthropic-version': '2023-06-01',
-    },
+    headers: openRouterHeaders(),
     body: JSON.stringify({
       model: CHAT_MODEL,
       max_tokens: 1024,
-      system,
-      messages: [{ role: 'user', content: `Kontekst:\n\n${context}${profileLine}\n\nPitanje: ${question}` }],
+      messages: [
+        { role: 'system', content: system },
+        { role: 'user', content: `Kontekst:\n\n${context}${profileLine}\n\nPitanje: ${question}` },
+      ],
     }),
   });
-  if (!r.ok) throw new Error(`Anthropic ${r.status}: ${await r.text()}`);
+  if (!r.ok) throw new Error(`OpenRouter chat ${r.status}: ${await r.text()}`);
   const json = await r.json();
-  return json.content.map((b) => b.text || '').join('');
+  return json.choices?.[0]?.message?.content || '';
 }
 
 module.exports = async function handler(req, res) {
@@ -85,7 +93,7 @@ module.exports = async function handler(req, res) {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
-  if (!process.env.POSTGRES_URL || !process.env.OPENAI_API_KEY || !process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.POSTGRES_URL || !process.env.OPENROUTER_API_KEY) {
     return res.status(503).json({ error: 'RAG još nije aktivan (nedostaju env varijable)' });
   }
   if (!rateLimit.allow(req)) {

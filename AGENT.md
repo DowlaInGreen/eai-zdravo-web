@@ -34,22 +34,21 @@ Agent NIKAD ne traži, ne ispisuje i ne commita API ključeve. Ključeve upisuje
 | `META_PIXEL_ID` | `1608983517302133` | ne |
 | `META_TEST_EVENT_CODE` | `TEST12345` (samo za test, obriši nakon) | ne |
 | `POSTGRES_URL` | (auto, vidi "RAG sustav") | ne — bez nje `/api/ask` vraća 503 |
-| `OPENAI_API_KEY` | (tajna, platform.openai.com) | ne — bez nje `/api/ask` vraća 503 |
-| `ANTHROPIC_API_KEY` | (tajna, console.anthropic.com) | ne — bez nje `/api/ask` vraća 503 |
+| `OPENROUTER_API_KEY` | (tajna, openrouter.ai/keys) | ne — bez nje `/api/ask` vraća 503 |
 
 Dok varijable nisu postavljene, forma vraća poruku "Prijave se otvaraju uskoro" (HTTP 503) — ništa se ne gubi tiho.
 
 ## RAG sustav (`/api/ask`)
-Arhitektura: Vercel Postgres (Neon) + pgvector, OpenAI embeddings (`text-embedding-3-small`), Claude za generaciju. Sadržaj: originalni članci u `rag-content/<kategorija>/*.md` (frontmatter: title/category/tags/sources), nikad kopiran tuđi copyrightani tekst — vidi PLAN.md za metodologiju.
+Arhitektura: Vercel Postgres (Neon) + pgvector, OpenRouter za embeddings (`openai/text-embedding-3-small`) i generaciju (`anthropic/claude-sonnet-5`) — jedan ključ, oba koraka, model po koraku zamjenjiv jednim stringom u `api/ask.js`/`scripts/rag-ingest.js`. Sadržaj: originalni članci u `rag-content/<kategorija>/*.md` (frontmatter: title/category/tags/sources), nikad kopiran tuđi copyrightani tekst — vidi PLAN.md za metodologiju.
 
 Jednokratna postavka (vlasnik, ne agent):
 1. Vercel projekt → **Storage** tab → **Create Database** → Postgres (Neon) → poveži s projektom `eai-zdravo-web`. Vercel sam upisuje `POSTGRES_URL` u env.
 2. Pokreni shemu jednom: `psql "$POSTGRES_URL" -f scripts/rag-schema.sql`
-3. Dodaj `OPENAI_API_KEY` i `ANTHROPIC_API_KEY` u Vercel env (Production).
+3. Napravi račun na openrouter.ai, generiraj ključ, dodaj `OPENROUTER_API_KEY` u Vercel env (Production).
 
 Punjenje/ažuriranje baze znanja (nakon svakog novog `.md` fajla u `rag-content/`):
 ```bash
-POSTGRES_URL=... OPENAI_API_KEY=... node scripts/rag-ingest.js
+POSTGRES_URL=... OPENROUTER_API_KEY=... node scripts/rag-ingest.js
 ```
 Idempotentno — ponovno pokretanje nad istim slugom samo ažurira taj dokument.
 
