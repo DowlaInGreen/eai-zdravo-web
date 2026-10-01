@@ -5,6 +5,7 @@ Upute za AI agenta (ili čovjeka) koji održava ovaj web. Sve promjene idu kroz 
 ## Stack
 - Statički HTML (`index.html`, `hvala.html`, `privatnost.html`, `404.html`), bez build koraka.
 - `api/subscribe.js` — Vercel serverless funkcija: forma → Brevo (double opt-in).
+- `api/ask.js` — RAG upit: embeddings (OpenAI) + pgvector retrieval (Vercel Postgres/Neon) + generacija (Claude). Sadržaj baze znanja u `rag-content/**.md`, upisuje se skriptom `scripts/rag-ingest.js`. Vidi "RAG sustav" ispod.
 - Hosting: Vercel projekt `eai-zdravo-web`, tim `dowlaingreens-projects`.
 - Domene: `www.eai-zdravo.com` (kanonska; `eai-zdravo.com` → 308 na www, postavka u Vercelu). `eaizdravo.com`, `e-ai.fit` (+www) → 308 na www.eai-zdravo.com preko `vercel.json` redirects.
 - Pošta: `info@eai-zdravo.com` (Zoho Mail). Slanje newslettera/onboardinga: Brevo, pošiljatelj `info@eai-zdravo.com`.
@@ -32,8 +33,25 @@ Agent NIKAD ne traži, ne ispisuje i ne commita API ključeve. Ključeve upisuje
 | `META_CAPI_TOKEN` | (tajna, Events Manager → dataset → Postavke → Conversions API) | ne — bez njega server-side Lead je isključen |
 | `META_PIXEL_ID` | `1608983517302133` | ne |
 | `META_TEST_EVENT_CODE` | `TEST12345` (samo za test, obriši nakon) | ne |
+| `POSTGRES_URL` | (auto, vidi "RAG sustav") | ne — bez nje `/api/ask` vraća 503 |
+| `OPENAI_API_KEY` | (tajna, platform.openai.com) | ne — bez nje `/api/ask` vraća 503 |
+| `ANTHROPIC_API_KEY` | (tajna, console.anthropic.com) | ne — bez nje `/api/ask` vraća 503 |
 
 Dok varijable nisu postavljene, forma vraća poruku "Prijave se otvaraju uskoro" (HTTP 503) — ništa se ne gubi tiho.
+
+## RAG sustav (`/api/ask`)
+Arhitektura: Vercel Postgres (Neon) + pgvector, OpenAI embeddings (`text-embedding-3-small`), Claude za generaciju. Sadržaj: originalni članci u `rag-content/<kategorija>/*.md` (frontmatter: title/category/tags/sources), nikad kopiran tuđi copyrightani tekst — vidi PLAN.md za metodologiju.
+
+Jednokratna postavka (vlasnik, ne agent):
+1. Vercel projekt → **Storage** tab → **Create Database** → Postgres (Neon) → poveži s projektom `eai-zdravo-web`. Vercel sam upisuje `POSTGRES_URL` u env.
+2. Pokreni shemu jednom: `psql "$POSTGRES_URL" -f scripts/rag-schema.sql`
+3. Dodaj `OPENAI_API_KEY` i `ANTHROPIC_API_KEY` u Vercel env (Production).
+
+Punjenje/ažuriranje baze znanja (nakon svakog novog `.md` fajla u `rag-content/`):
+```bash
+POSTGRES_URL=... OPENAI_API_KEY=... node scripts/rag-ingest.js
+```
+Idempotentno — ponovno pokretanje nad istim slugom samo ažurira taj dokument.
 
 ## Brevo postavke (jednokratno, ručno u Brevo sučelju)
 1. Senders & Domains → dodaj `eai-zdravo.com`, upiši DKIM/verifikacijske zapise u DNS → status "Authenticated".
