@@ -194,7 +194,7 @@ tests/app-auth.check.js:6: process.env.GOOGLE_CLIENT_ID = 'test-client.apps.goog
    - OAuth consent screen: External, app name "E-AI zdravo", support email info@eai-zdravo.com, scopes `openid email profile` only. Testing mode is fine for the pilot; add the testers' Gmail addresses.
    - Credentials → Create OAuth client ID → Web application. Authorized redirect URIs:
      - `https://www.eai-zdravo.com/api/auth/callback`
-     - `https://eai-zdravo-web-git-claude-o1-onboarding-dashboard-dowlaingreens-projects.vercel.app/api/auth/callback` (branch preview alias)
+     - `https://<branch preview alias>/api/auth/callback`. Copy the alias exactly from Vercel → Deployments → this branch → Domains. Vercel shortens long branch aliases (e.g. `eai-zdravo-web-git-claude-o1-…-<hash>-dowlaingreens-projects.vercel.app`). The login code accepts any `eai-zdravo-web-…-dowlaingreens-projects.vercel.app` host, but Google needs the exact string.
 2. **Vercel → eai-zdravo-web → Settings → Environment Variables** (Preview + Production; values never in chat):
    - `GOOGLE_CLIENT_ID`
    - `GOOGLE_CLIENT_SECRET`
