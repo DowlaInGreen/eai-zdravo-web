@@ -9,7 +9,11 @@
     "test:rag": "node tests/rag.check.js",
     "rag:pages": "node scripts/pages-to-rag.js",
     "rag:ingest": "node scripts/rag-ingest.js",
-    "rag:eval": "node scripts/rag-eval.js"
+    "rag:eval": "node scripts/rag-eval.js",
+    "db:app": "psql \"$POSTGRES_URL\" -v ON_ERROR_STOP=1 -f scripts/app-schema.sql",
+    "test:app": "node --test tests/app-savings.check.js && node --test --test-concurrency=1 tests/app-isolation.check.js tests/app-auth.check.js tests/app-onboarding.check.js",
+    "test:app:browser": "node tests/app-browser.check.js",
+    "app:push-savings": "node scripts/push-week-savings.js"
   },
   "dependencies": {
     "pg": "^8.23.1"

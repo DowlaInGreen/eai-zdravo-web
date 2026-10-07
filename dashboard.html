@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Moj dashboard — E-AI zdravo</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="/assets/app.css?v=1">
+</head>
+<body>
+<div class="app app-wide">
+  <div class="top">
+    <a class="brand" href="/"><img src="/assets/icon-96.png" alt="" width="32" height="32">E-AI zdravo</a>
+    <a class="btn-ghost" href="/api/auth/logout">Odjava</a>
+  </div>
+  <div id="root" class="dash"><div class="loading">Učitavam…</div></div>
+</div>
+<dialog id="del" aria-labelledby="del-t">
+  <h2 id="del-t" style="font-size:20px">Obrisati sve podatke?</h2>
+  <p>Brišemo profil, trening, kućanstvo, alergene i povijest uštede. Ovo se ne može vratiti.</p>
+  <div class="row">
+    <button type="button" class="btn btn-line" data-act="cancel">Odustani</button>
+    <button type="button" class="btn" style="background:var(--c-error)" data-act="confirm">Obriši</button>
+  </div>
+</dialog>
+<script src="/assets/app-common.js?v=1"></script>
+<script src="/assets/dashboard.js?v=1"></script>
+</body>
+</html>

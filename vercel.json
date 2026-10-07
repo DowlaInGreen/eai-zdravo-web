@@ -48,6 +48,19 @@
           "value": "public, max-age=86400"
         }
       ]
+    },
+    {
+      "source": "/(prijava|onboarding|dashboard)(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ],
   "redirects": [
@@ -104,6 +117,12 @@
       ],
       "destination": "https://www.eai-zdravo.com/:path*",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/onboarding/:step(\\d)",
+      "destination": "/onboarding"
     }
   ]
 }

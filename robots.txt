@@ -2,4 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /hvala
 Disallow: /k/
+Disallow: /api/
+Disallow: /prijava
+Disallow: /onboarding
+Disallow: /dashboard
 Sitemap: https://www.eai-zdravo.com/sitemap.xml

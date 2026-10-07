@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prijava — E-AI zdravo</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="/assets/app.css?v=1">
+</head>
+<body>
+<div class="app">
+  <div class="top"><a class="brand" href="/"><img src="/assets/icon-96.png" alt="" width="32" height="32">E-AI zdravo</a></div>
+  <main class="login">
+    <div>
+      <h1 class="title">Tvoj tjedni plan, tvoja ušteda</h1>
+      <p class="lead">Prijavi se Google računom. Za 2 minute složimo profil, a ušteda u eurima stoji ti na vrhu dashboarda svaki tjedan.</p>
+    </div>
+    <p id="err" class="note warn" role="alert" hidden></p>
+    <a id="go" class="btn gbtn" href="/api/auth/google">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+      Nastavi s Googleom
+    </a>
+    <p class="legal">Dohvaćamo samo ime i email adresu s Google računa. Nastavkom prihvaćaš <a href="/uvjeti">Uvjete</a> i <a href="/privatnost">Pravila privatnosti</a>.</p>
+  </main>
+</div>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var msgs = {
+    uskoro: 'Prijava se otvara uskoro. Do tada nam piši na info@eai-zdravo.com.',
+    odustao: 'Prijava je prekinuta. Pokušaj ponovno kad želiš.',
+    istek: 'Prijava je istekla ili je otvorena u drugom pregledniku. Pokušaj ponovno.',
+    google: 'Google nije potvrdio prijavu. Pokušaj ponovno ili koristi drugi račun.',
+    baza: 'Nešto je zapelo kod nas. Pokušaj za minutu.',
+    host: 'Prijava radi samo na www.eai-zdravo.com.'
+  };
+  var e = q.get('greska');
+  if (e && msgs[e]) { var el = document.getElementById('err'); el.textContent = msgs[e]; el.hidden = false; }
+  var next = q.get('next');
+  if (next && /^\/(dashboard|onboarding)(\/[0-9])?(\?[a-z=0-9&]*)?$/.test(next)) {
+    document.getElementById('go').href = '/api/auth/google?next=' + encodeURIComponent(next);
+  }
+})();
+</script>
+</body>
+</html>

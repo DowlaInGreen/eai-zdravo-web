@@ -1,5 +1,5 @@
 // O1.2 — data isolation + schema constraints against a throwaway local Postgres.
-// Run: source tests/local-pg.sh start && psql "$POSTGRES_URL" -f scripts/app-schema.sql && node --test tests/app-isolation.test.js
+// Run: source tests/local-pg.sh start && psql "$POSTGRES_URL" -f scripts/app-schema.sql && node --test tests/app-isolation.check.js
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { getPool, closePool } = require('../api/_lib/db');
